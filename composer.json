@@ -1,12 +1,12 @@
 {
-    "name": "fruit42/translation42",
-    "type": "zend-module",
-    "require": {
-        "php": ">=5.3.23"
-    },
-    "autoload": {
-        "psr-0": {
-            "Translation42": "src/"
-        }
+  "name": "fruit42/translation42",
+  "type": "zend-module",
+  "require": {
+    "php": ">=5.3.23"
+  },
+  "autoload": {
+    "psr-0": {
+      "Translation42": "src/"
     }
+  }
 }

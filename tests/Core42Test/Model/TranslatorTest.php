@@ -7,4 +7,12 @@
  *
  */
 
-require_once __DIR__ . '/src/Translation42/Module.php';
+namespace Translation42Test\Model;
+
+class TranslatorTest extends \PHPUnit_Framework_TestCase
+{
+
+    public function setUp()
+    {
+    }
+}
