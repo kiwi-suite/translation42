@@ -41,7 +41,8 @@ class TranslationMissingListener
             }
         }
 
-        // call create translation command all available locales with key and status 'auto' (was generated through request)
+        // call create translation command all available locales with key and status 'auto'
+        // (was generated through request)
         if ($isRemoteTextDomain) {
             try {
                 /** @var CreateCommand $cmd */
@@ -53,7 +54,8 @@ class TranslationMissingListener
                 $cmd->run();
             } catch (Exception $e) {
                 // ok
-                // translation with same message, local and textDomain was already inserted but translation is still empty
+                // translation with same message, local and textDomain was already inserted but
+                // translation is still empty
             }
         }
     }
