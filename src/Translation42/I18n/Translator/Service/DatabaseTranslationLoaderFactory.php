@@ -10,6 +10,7 @@
 namespace Translation42\I18n\Translator\Service;
 
 use Translation42\I18n\Translator\DatabaseTranslationLoader;
+use Translation42\TableGateway\TranslationTableGateway;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -17,17 +18,18 @@ class DatabaseTranslationLoaderFactory implements FactoryInterface
 {
 
     /**
-     * Create service
-     *
      * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return mixed
+     * @return DatabaseTranslationLoader
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        // TODO: tablegateway
-        $db = $serviceLocator->getServiceLocator()->get('DB/Master');
+        if (get_class($serviceLocator) !== 'Zend\ServiceManager\ServiceManager') {
+            // TranslatorFactory will provide the LoaderPluginManager, the EventManager (for missing translations) already provides it
+            $serviceLocator = $serviceLocator->getServiceLocator();
+        }
 
-        return new DatabaseTranslationLoader($db);
+        /** @var TranslationTableGateway $tableGateway */
+        $tableGateway = $serviceLocator->get('TableGateway')->get('Translation42\Translation');
+        return new DatabaseTranslationLoader($tableGateway);
     }
 }

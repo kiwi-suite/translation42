@@ -1,18 +1,35 @@
 <?php
 namespace Translation42;
 
-return array(
-    'translator' => array(
-        'remote_translation'  => array(
-            array(
-                'type' => 'database',
+return [
+    'translator' => [
+        'translation_file_patterns' => [
+            [
+                'type'        => 'phparray',
+                'base_dir'    => __DIR__ . '/../data/language/',
+                'pattern'     => '%s.php',
+                'text_domain' => 'admin',
+            ],
+        ],
+        'remote_translation' => [
+            [
+                'type'        => 'database',
                 'text_domain' => 'frontend',
-            ),
-        ),
-    ),
-    'translation_manager' => array(
-        'factories' => array(
+            ],
+            [
+                'type'        => 'database',
+                'text_domain' => 'mobile',
+            ],
+        ],
+        'event_manager_enabled' => true,
+        'missing_translations_handler' => [
+            'service' => 'translator',
+            'action' => 'handleMissingTranslation',
+        ],
+    ],
+    'translation_manager' => [
+        'factories' => [
             'database' => 'Translation42\I18n\Translator\Service\DatabaseTranslationLoaderFactory',
-        )
-    ),
-);
+        ]
+    ],
+];
