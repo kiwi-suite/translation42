@@ -7,7 +7,9 @@
 <div class="wrapper-md">
     <div class="panel panel-default">
         <div class="table-responsive" ng-controller="DataGridController"
-             data-url="<?= $this->url('admin/translation/text-domain', ['text-domain' => $this->params()->fromRoute('text-domain')]) ?>">
+             data-url="<?= $this->url(
+                 'admin/translation/text-domain', ['text-domain' => $this->params()->fromRoute('text-domain')]
+             ) ?>">
             <table st-table="collection" st-pipe="callServer" class="table table-striped top-border-radius">
                 <thead>
                 <tr>
@@ -19,21 +21,26 @@
                 </tr>
                 <tr>
                     <th>
-                        <input st-search="'message'" placeholder="search for message" class="input-sm form-control" type="search"/>
+                        <input st-search="'message'" placeholder="search for message" class="input-sm form-control"
+                               type="search"/>
                     </th>
                     <th>
-                        <input st-search="'translation'" placeholder="search for translation" class="input-sm form-control" type="search"/>
+                        <input st-search="'translation'" placeholder="search for translation"
+                               class="input-sm form-control" type="search"/>
                     </th>
                     <th>
-                        <input st-search="'locale'" placeholder="search for locale" class="input-sm form-control" type="search"/>
+                        <input st-search="'locale'" placeholder="search for locale" class="input-sm form-control"
+                               type="search"/>
                     </th>
                     <th>
-                        <input st-search="'textDomain'" placeholder="search for textDomain" class="input-sm form-control" type="search"
+                        <input st-search="'textDomain'" placeholder="search for textDomain"
+                               class="input-sm form-control" type="search"
                                value="<?= $this->params()->fromRoute('text-domain') ?>"
                                st-value="<?= $this->params()->fromRoute('text-domain') ?>"/>
                     </th>
                     <th>
-                        <input st-search="'status'" placeholder="search for status" class="input-sm form-control" type="search"/>
+                        <input st-search="'status'" placeholder="search for status" class="input-sm form-control"
+                               type="search"/>
                     </th>
                 </tr>
                 </thead>
@@ -62,7 +69,9 @@
         </div>
         <div class="panel-footer">
             <a class="btn btn-default"
-               href="<?= $this->url('admin/translation/text-domain/add', ['text-domain' => $this->params()->fromRoute('text-domain')]) ?>">
+               href="<?= $this->url(
+                   'admin/translation/text-domain/add', ['text-domain' => $this->params()->fromRoute('text-domain')]
+               ) ?>">
                 <span class="fa fa-plus-circle"></span>
                 <?= $this->translate('button.message-key-add', 'admin') ?>
             </a>
