@@ -34,7 +34,9 @@ class TranslationMissingListener
 
         // only handle translations that are in remote translation text domains
         foreach ($config['translator']['remote_translation'] as $remoteTextDomain) {
-            if ($remoteTextDomain['type'] == 'database' && $remoteTextDomain['text_domain'] == $eventParams['text_domain']) {
+            if ($remoteTextDomain['type'] == 'database'
+                && $remoteTextDomain['text_domain'] == $eventParams['text_domain']
+            ) {
                 $isRemoteTextDomain = true;
             }
         }
