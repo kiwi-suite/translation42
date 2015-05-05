@@ -16,20 +16,14 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class DatabaseTranslationLoaderFactory implements FactoryInterface
 {
-
     /**
      * @param ServiceLocatorInterface $serviceLocator
      * @return DatabaseTranslationLoader
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        if (get_class($serviceLocator) !== 'Zend\ServiceManager\ServiceManager') {
-            // TranslatorFactory will provide the LoaderPluginManager, the EventManager (for missing translations) already provides it
-            $serviceLocator = $serviceLocator->getServiceLocator();
-        }
-
         /** @var TranslationTableGateway $tableGateway */
-        $tableGateway = $serviceLocator->get('TableGateway')->get('Translation42\Translation');
+        $tableGateway = $serviceLocator->getServiceLocator()->get('TableGateway')->get('Translation42\Translation');
         return new DatabaseTranslationLoader($tableGateway);
     }
 }

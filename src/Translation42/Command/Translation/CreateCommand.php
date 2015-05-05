@@ -123,5 +123,4 @@ class CreateCommand extends AbstractCommand
 
         return $translation;
     }
-
 }

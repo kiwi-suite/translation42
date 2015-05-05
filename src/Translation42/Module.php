@@ -9,11 +9,9 @@
 
 namespace Translation42;
 
-use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
-class Module implements BootstrapListenerInterface, ConfigProviderInterface
+class Module implements ConfigProviderInterface
 {
     /**
      * @return array
@@ -26,17 +24,5 @@ class Module implements BootstrapListenerInterface, ConfigProviderInterface
             include __DIR__ . '/../../config/routing.config.php',
             include __DIR__ . '/../../config/translation.config.php'
         );
-    }
-
-    /**
-     * Listen to the bootstrap event
-     *
-     * @param EventInterface $e
-     *
-     * @return array
-     */
-    public function onBootstrap(EventInterface $e)
-    {
-        // TODO: Implement onBootstrap() method.
     }
 }

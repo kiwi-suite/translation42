@@ -23,8 +23,8 @@ return [
         ],
         'event_manager_enabled' => true,
         'missing_translations_handler' => [
-            'service' => 'translator',
-            'action' => 'handleMissingTranslation',
+            'service' => 'Translation42/TranslationMissingListener',
+            'action' => 'autoGenerateMissingTranslation',
         ],
     ],
     'translation_manager' => [
