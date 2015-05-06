@@ -2,23 +2,66 @@
 namespace Translation42\Selector\SmartTable;
 
 use Admin42\Selector\SmartTable\AbstractSmartTableSelector;
+use Core42\Db\ResultSet\ResultSet;
+use Zend\Db\Sql\Select;
 
 class TranslationSelector extends AbstractSmartTableSelector
 {
-    protected $tableGateway = 'Translation42\Translation';
+    /**
+     * @return Select|string|ResultSet
+     */
+    protected function getSelect()
+    {
+        $gateway = $this->getTableGateway('Translation42\Translation');
+
+        $select = $gateway->getSql()->select();
+
+        $where = $this->getWhere();
+        if (!empty($where)) {
+            $select->where($where);
+        }
+
+        $order = $this->getOrder();
+        if (!empty($order)) {
+            $select->order($order);
+        }
+
+        return $select;
+    }
 
     /**
-     * @var null|array
+     * @return array
      */
-    protected $columns = ['message', 'translation', 'locale', 'textDomain', 'status', 'updated', 'created'];
+    protected function getDatabaseTypeMap()
+    {
+        return [
+            'id' => 'Mysql/Integer',
+            'updated' => 'Mysql/Datetime',
+            'created' => 'Mysql/Datetime',
+        ];
+    }
 
     /**
-     * @var null|array
+     * @return array
      */
-    protected $searchAbleColumns = ['message', 'translation', 'locale', 'textDomain', 'status'];
+    function getSearchAbleColumns()
+    {
+        return ['message', 'translation', 'locale', 'textDomain', 'status'];
+    }
 
     /**
-     * @var array
+     * @return array
      */
-    protected $sortAbleColumns = ['message', 'translation', 'locale', 'textDomain', 'status'];
+    function getSortAbleColumns()
+    {
+        return ['message', 'translation', 'locale', 'textDomain', 'status'];
+    }
+
+    /**
+     * @return array
+     */
+    function getDisplayColumns()
+    {
+        return ['message', 'translation', 'locale', 'textDomain', 'status', 'updated', 'created'];
+    }
 }
