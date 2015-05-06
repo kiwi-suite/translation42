@@ -44,7 +44,7 @@ class TranslationSelector extends AbstractSmartTableSelector
     /**
      * @return array
      */
-    function getSearchAbleColumns()
+    protected function getSearchAbleColumns()
     {
         return ['message', 'translation', 'locale', 'textDomain', 'status'];
     }
@@ -52,7 +52,7 @@ class TranslationSelector extends AbstractSmartTableSelector
     /**
      * @return array
      */
-    function getSortAbleColumns()
+    protected function getSortAbleColumns()
     {
         return ['message', 'translation', 'locale', 'textDomain', 'status'];
     }
@@ -60,7 +60,7 @@ class TranslationSelector extends AbstractSmartTableSelector
     /**
      * @return array
      */
-    function getDisplayColumns()
+    protected function getDisplayColumns()
     {
         return ['message', 'translation', 'locale', 'textDomain', 'status', 'updated', 'created'];
     }
