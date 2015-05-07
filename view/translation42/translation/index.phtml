@@ -48,7 +48,7 @@
                 <tr ng-repeat="row in collection">
                     <td>{{row.message}}</td>
                     <td>{{row.translation}}</td>
-                    <td>{{row.locale}}</td>
+                    <td><span class="flag-icon flag-icon-{{row.locale.split('-')[1].toLowerCase()}}"></span> {{row.locale}}</td>
                     <td>{{row.textDomain}}</td>
                     <td>{{row.status}}</td>
                 </tr>

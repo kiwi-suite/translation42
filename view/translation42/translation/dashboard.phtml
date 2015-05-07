@@ -68,6 +68,18 @@
                                     <i class="fa fa-question fa-fw m-r-xs"></i> Missing Translations
                                 </span>
                             </div>
+                            <div class="list-group">
+                                <?php foreach($textDomain['regions'] as $region): ?>
+                                <span class="list-group-item">
+                                    <!--<i class="fa fa-chevron-right text-muted"></i>-->
+                                    <span class="badge <?= $region['num_translated'] > 0 ? 'bg-success' : '' ?>"><?= $region['num_translated'] ?></span>
+                                    <?php if($region['num_missing_total'] > 0): ?>
+                                    <span class="badge bg-danger"><?= $region['num_missing_total'] ?></span>
+                                    <?php endif ?>
+                                    <i class="flag-icon flag-icon-<?= $region['region'] ?> m-r-xs"></i> <?= $region['locale'] ?>
+                                </span>
+                                <?php endforeach ?>
+                            </div>
 
                         </div>
                     </div>
