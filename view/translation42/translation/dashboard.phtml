@@ -8,9 +8,7 @@
     <div class="row">
         <?php foreach ($this->textDomains as $textDomain): ?>
             <div class="col-sm-4">
-                <a href="<?= $this->url(
-                    'admin/translation/text-domain', ['text-domain' => $textDomain['text_domain']]
-                ) ?>">
+                <a href="<?= $this->url('admin/translation/list') ?>?text-domain=<?= $textDomain['text_domain'] ?>">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <span class="panel-title">
@@ -70,14 +68,14 @@
                             </div>
                             <div class="list-group">
                                 <?php foreach($textDomain['regions'] as $region): ?>
-                                <span class="list-group-item">
+                                <a href="<?= $this->url('admin/translation/list') ?>?text-domain=<?= $textDomain['text_domain'] ?>&amp;locale=<?= $region['locale'] ?>" class="list-group-item">
                                     <!--<i class="fa fa-chevron-right text-muted"></i>-->
                                     <span class="badge <?= $region['num_translated'] > 0 ? 'bg-success' : '' ?>"><?= $region['num_translated'] ?></span>
                                     <?php if($region['num_missing_total'] > 0): ?>
                                     <span class="badge bg-danger"><?= $region['num_missing_total'] ?></span>
                                     <?php endif ?>
                                     <i class="flag-icon flag-icon-<?= $region['region'] ?> m-r-xs"></i> <?= $region['locale'] ?>
-                                </span>
+                                </a>
                                 <?php endforeach ?>
                             </div>
 

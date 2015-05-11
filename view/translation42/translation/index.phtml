@@ -8,7 +8,7 @@
     <div class="panel panel-default">
         <div class="table-responsive" ng-controller="DataGridController"
              data-url="<?= $this->url(
-                 'admin/translation/text-domain', ['text-domain' => $this->params()->fromRoute('text-domain')]
+                 'admin/translation/list'
              ) ?>">
             <table st-table="collection" st-pipe="callServer" class="table table-striped top-border-radius">
                 <thead>
@@ -18,39 +18,55 @@
                     <th st-sort="locale"><?= $this->translate('label.locale', 'admin') ?></th>
                     <th st-sort="textDomain"><?= $this->translate('label.textDomain', 'admin') ?></th>
                     <th st-sort="status"><?= $this->translate('label.status', 'admin') ?></th>
+                    <th></th>
                 </tr>
                 <tr>
                     <th>
-                        <input st-search="'message'" placeholder="search for message" class="input-sm form-control"
+                        <input st-search42="message" placeholder="search for message" class="input-sm form-control"
                                type="search"/>
                     </th>
                     <th>
-                        <input st-search="'translation'" placeholder="search for translation"
+                        <input st-search42="translation" placeholder="search for translation"
                                class="input-sm form-control" type="search"/>
                     </th>
                     <th>
-                        <input st-search="'locale'" placeholder="search for locale" class="input-sm form-control"
-                               type="search"/>
+                        <select st-search42="locale" class="form-control">
+                            <option value="">search for locale</option>
+                            <option value="de-AT" <?= $this->params()->fromQuery('locale') == 'de-AT' ? 'selected' : '' ?>>de-AT</option>
+                            <option value="de-DE" <?= $this->params()->fromQuery('locale') == 'de-DE' ? 'selected' : '' ?>>de-DE</option>
+                            <option value="en-US" <?= $this->params()->fromQuery('locale') == 'en-US' ? 'selected' : '' ?>>en-US</option>
+                        </select>
                     </th>
                     <th>
-                        <input st-search="'textDomain'" placeholder="search for textDomain"
-                               class="input-sm form-control" type="search"
-                               value="<?= $this->params()->fromRoute('text-domain') ?>"
-                               st-value="<?= $this->params()->fromRoute('text-domain') ?>"/>
+                        <select st-search42="textDomain" class="form-control">
+                            <option value="">search for text domain</option>
+                            <option value="frontend" <?= $this->params()->fromQuery('text-domain') == 'frontend' ? 'selected' : '' ?>>frontend</option>
+                            <option value="mobile" <?= $this->params()->fromQuery('text-domain') == 'mobile' ? 'selected' : '' ?>>mobile</option>
+                        </select>
                     </th>
                     <th>
-                        <input st-search="'status'" placeholder="search for status" class="input-sm form-control"
-                               type="search"/>
+                        <input st-search42="status" placeholder="search for status"
+                               class="input-sm form-control" type="search"/>
                     </th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody ng-hide="isLoading">
                 <tr ng-repeat="row in collection">
                     <td>{{row.message}}</td>
                     <td>{{row.translation}}</td>
-                    <td><span class="flag-icon flag-icon-{{row.locale.split('-')[1].toLowerCase()}}"></span> {{row.locale}}</td>
+                    <td>
+                        <span class="flag-icon flag-icon-{{row.locale.split('-')[1].toLowerCase()}}"></span>
+                        {{row.locale}}
+                    </td>
                     <td>{{row.textDomain}}</td>
                     <td>{{row.status}}</td>
+                    <td>
+                        <a class="btn btn-info btn-sm" ng-href="<?= $this->url("admin/translation/edit", array('id' => "{{ row.id }}"))?>">
+                            <span class="fa fa-pencil" aria-hidden="true"></span>
+                            <?= $this->translate('button.edit', 'admin') ?>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
                 <tbody ng-show="isLoading">
@@ -70,7 +86,7 @@
         <div class="panel-footer">
             <a class="btn btn-default"
                href="<?= $this->url(
-                   'admin/translation/text-domain/add', ['text-domain' => $this->params()->fromRoute('text-domain')]
+                   'admin/translation/add', ['text-domain' => $this->params()->fromRoute('text-domain')]
                ) ?>">
                 <span class="fa fa-plus-circle"></span>
                 <?= $this->translate('button.message-key-add', 'admin') ?>

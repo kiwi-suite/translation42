@@ -46,7 +46,7 @@ class TranslationSelector extends AbstractSmartTableSelector
      */
     protected function getSearchAbleColumns()
     {
-        return ['message', 'translation', 'locale', 'textDomain', 'status'];
+        return ['id', 'message', 'translation', 'locale', 'textDomain', 'status'];
     }
 
     /**
@@ -54,7 +54,7 @@ class TranslationSelector extends AbstractSmartTableSelector
      */
     protected function getSortAbleColumns()
     {
-        return ['message', 'translation', 'locale', 'textDomain', 'status'];
+        return ['id', 'message', 'translation', 'locale', 'textDomain', 'status'];
     }
 
     /**
@@ -62,6 +62,6 @@ class TranslationSelector extends AbstractSmartTableSelector
      */
     protected function getDisplayColumns()
     {
-        return ['message', 'translation', 'locale', 'textDomain', 'status', 'updated', 'created'];
+        return ['id', 'message', 'translation', 'locale', 'textDomain', 'status', 'updated', 'created'];
     }
 }

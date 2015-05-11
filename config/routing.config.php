@@ -17,46 +17,41 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes'  => [
-                            'text-domain' => [
+                            'list' => [
                                 'type'          => 'Zend\Mvc\Router\Http\Segment',
                                 'options'       => [
-                                    'route'    => ':text-domain/',
+                                    'route'    => 'list/',
                                     'defaults' => [
                                         'action' => 'index',
                                     ],
                                 ],
-                                'may_terminate' => true,
-                                'child_routes'  => [
-
-                                    'edit'   => [
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => [
-                                            'route'    => 'edit/:id/',
-                                            'defaults' => [
-                                                'action'     => 'detail',
-                                                'isEditMode' => true,
-                                            ],
-                                        ],
+                            ],
+                            'edit'   => [
+                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route'    => 'edit/:id/',
+                                    'defaults' => [
+                                        'action'     => 'detail',
+                                        'isEditMode' => true,
                                     ],
-                                    'add'    => [
-                                        'type'    => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route'    => 'add/',
-                                            'defaults' => [
-                                                'action'     => 'detail',
-                                                'isEditMode' => false,
-                                            ],
-                                        ],
+                                ],
+                            ],
+                            'add'    => [
+                                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route'    => 'add/',
+                                    'defaults' => [
+                                        'action'     => 'detail',
+                                        'isEditMode' => false,
                                     ],
-
-                                    'delete' => [
-                                        'type'    => 'Zend\Mvc\Router\Http\Literal',
-                                        'options' => [
-                                            'route'    => 'delete/',
-                                            'defaults' => [
-                                                'action' => 'delete',
-                                            ],
-                                        ],
+                                ],
+                            ],
+                            'delete' => [
+                                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                                'options' => [
+                                    'route'    => 'delete/',
+                                    'defaults' => [
+                                        'action' => 'delete',
                                     ],
                                 ],
                             ],
