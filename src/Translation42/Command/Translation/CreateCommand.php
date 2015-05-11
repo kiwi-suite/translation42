@@ -122,6 +122,14 @@ class CreateCommand extends AbstractCommand
         }
 
         $this->translation = (empty($this->translation)) ? null : $this->translation;
+
+        if ($this->status === null) {
+            $this->status = Translation::STATUS_MANUAL;
+        } else {
+            if (!in_array($this->status, [Translation::STATUS_MANUAL, Translation::STATUS_AUTO])) {
+                $this->addError("status", "invalid status '{$this->status}'");
+            }
+        }
     }
 
     /**
@@ -136,7 +144,7 @@ class CreateCommand extends AbstractCommand
             ->setLocale($this->locale)
             ->setMessage($this->message)
             ->setTranslation($this->translation)
-            ->setStatus(Translation::STATUS_MANUAL)
+            ->setStatus($this->status)
             ->setCreated($datetime)
             ->setUpdated($datetime);
 
