@@ -145,7 +145,7 @@ class TranslationController extends AbstractAdminController
         if ($prg !== false) {
             if ($isEditMode === true) {
                 $cmd = $this->getCommand('Translation42\Translation\Edit');
-                $cmd->setTranslationId($this->params()->fromRoute("id"));
+                $cmd->setTranslationId($this->params()->fromRoute('id'));
             } else {
                 $cmd = $this->getCommand('Translation42\Translation\Create');
             }
@@ -157,28 +157,29 @@ class TranslationController extends AbstractAdminController
                 ->setData($prg)
                 ->run();
             if (!$formCommand->hasErrors()) {
-                $this->flashMessenger()->addSuccessMessage("Success");
+                $this->flashMessenger()->addSuccessMessage([
+                    'title' => 'toaster.translation.detail.title.success',
+                    'message' => 'toaster.translation.detail.message.success',
+                ]);
 
                 return $this->redirect()->toRoute(
-                    'admin/translation/frontend/edit',
-                    ['textDomain' => $this->params()->fromRoute("textDomain"), 'id' => $translation->getId()]
+                    'admin/translation'
                 );
             } else {
-                $this->flashMessenger()->addErrorMessage("Error");
+                $this->flashMessenger()->addErrorMessage([
+                    'title' => 'toaster.translation.detail.title.error',
+                    'message' => 'toaster.translation.detail.message.error',
+                ]);
             }
         } else {
             if ($isEditMode === true) {
                 $translation = $this->getTableGateway('Translation42\Translation')->selectByPrimary(
-                    (int)$this->params()->fromRoute("id")
+                    (int)$this->params()->fromRoute('id')
                 );
                 if (empty($translation)) {
                     return $this->redirect()->toRoute('admin/translation');
                 }
-                $createEditForm->setData(
-                    [
-                        'key' => $translation->getKey(),
-                    ]
-                );
+                $createEditForm->setData($translation->toArray());
             }
         }
 

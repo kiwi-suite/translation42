@@ -17,9 +17,9 @@ return [
                         ],
                         'may_terminate' => true,
                         'child_routes'  => [
-                            'list' => [
-                                'type'          => 'Zend\Mvc\Router\Http\Segment',
-                                'options'       => [
+                            'list'   => [
+                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
                                     'route'    => 'list/',
                                     'defaults' => [
                                         'action' => 'index',
@@ -27,7 +27,7 @@ return [
                                 ],
                             ],
                             'edit'   => [
-                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                'type'    => 'Core42\Mvc\Router\Http\AngularSegment',
                                 'options' => [
                                     'route'    => 'edit/:id/',
                                     'defaults' => [

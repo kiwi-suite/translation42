@@ -31,7 +31,7 @@
                     </th>
                     <th>
                         <select st-search42="locale" class="form-control">
-                            <option value="">search for locale</option>
+                            <option value="">All locales</option>
                             <option value="de-AT" <?= $this->params()->fromQuery('locale') == 'de-AT' ? 'selected' : '' ?>>de-AT</option>
                             <option value="de-DE" <?= $this->params()->fromQuery('locale') == 'de-DE' ? 'selected' : '' ?>>de-DE</option>
                             <option value="en-US" <?= $this->params()->fromQuery('locale') == 'en-US' ? 'selected' : '' ?>>en-US</option>
@@ -39,14 +39,17 @@
                     </th>
                     <th>
                         <select st-search42="textDomain" class="form-control">
-                            <option value="">search for text domain</option>
-                            <option value="frontend" <?= $this->params()->fromQuery('text-domain') == 'frontend' ? 'selected' : '' ?>>frontend</option>
-                            <option value="mobile" <?= $this->params()->fromQuery('text-domain') == 'mobile' ? 'selected' : '' ?>>mobile</option>
+                            <option value="">All text domains</option>
+                            <option value="frontend" <?= $this->params()->fromQuery('text-domain') == 'frontend' ? 'selected' : '' ?>>Frontend</option>
+                            <option value="mobile" <?= $this->params()->fromQuery('text-domain') == 'mobile' ? 'selected' : '' ?>>Mobile</option>
                         </select>
                     </th>
                     <th>
-                        <input st-search42="status" placeholder="search for status"
-                               class="input-sm form-control" type="search"/>
+                        <select st-search42="status" class="form-control">
+                            <option value="">All statuses</option>
+                            <option value="auto" <?= $this->params()->fromQuery('status') == 'auto' ? 'selected' : '' ?>>Auto-ganerated</option>
+                            <option value="manual" <?= $this->params()->fromQuery('status') == 'manual' ? 'selected' : '' ?>>Manual</option>
+                        </select>
                     </th>
                     <th></th>
                 </tr>

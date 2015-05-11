@@ -22,8 +22,24 @@ class CreateEditForm extends Form
     {
         $this->add(new Csrf('csrf'));
 
-        $key = new Text("key");
-        $key->setLabel("Key");
-        $this->add($key);
+        $status = new Text("status");
+        $status->setLabel("label.status");
+        $this->add($status);
+
+        $textDomain = new Text("textDomain");
+        $textDomain->setLabel('label.textDomain');
+        $this->add($textDomain);
+
+        $locale = new Text("locale");
+        $locale->setLabel('label.locale');
+        $this->add($locale);
+
+        $message = new Text("message");
+        $message->setLabel("label.message");
+        $this->add($message);
+
+        $translation = new Text("translation");
+        $translation->setLabel("label.translation");
+        $this->add($translation);
     }
 }

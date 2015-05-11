@@ -15,6 +15,11 @@ use Translation42\Model\Translation;
 class EditCommand extends AbstractCommand
 {
     /**
+     * @var int
+     */
+    private $translationId;
+
+    /**
      * @var string
      */
     private $textDomain;
@@ -38,6 +43,17 @@ class EditCommand extends AbstractCommand
      * @var string
      */
     private $status;
+
+    /**
+     * @param int $translationId
+     * @return $this
+     */
+    public function setTranslationId($translationId)
+    {
+        $this->translationId = $translationId;
+
+        return $this;
+    }
 
     /**
      * @param string $textDomain
