@@ -84,7 +84,7 @@ class CreateCommand extends AbstractCommand
      */
     public function hydrate(array $values)
     {
-        $this->setTextDomain(array_key_exists('text_domain', $values) ? $values['text_domain'] : null);
+        $this->setTextDomain(array_key_exists('textDomain', $values) ? $values['textDomain'] : null);
         $this->setLocale(array_key_exists('locale', $values) ? $values['locale'] : null);
         $this->setMessage(array_key_exists('message', $values) ? $values['message'] : null);
         $this->setTranslation(array_key_exists('translation', $values) ? $values['translation'] : null);
@@ -97,17 +97,38 @@ class CreateCommand extends AbstractCommand
      */
     protected function preExecute()
     {
-        if ($this->status === null) {
-            $this->status = Translation::STATUS_MANUAL;
-        } elseif (!in_array($this->status, [Translation::STATUS_MANUAL, Translation::STATUS_AUTO])) {
-            $this->addError("status", "invalid status '{$this->status}'");
+        //TODO: check unique
+        $existingTranslationModel = null;
+        //$existingTranslationModel = $this->getTableGateway('Translation42\Translation')->select(
+        //    [
+        //
+        //    ]
+        //);
+
+        if (!empty($existingTranslationModel)) {
+            $this->addError("translation", "translation with same key and locale already exists in this text domain");
         }
+
+        if (empty($this->textDomain)) {
+            $this->addError("textDomain", "textDomain can't be empty");
+        }
+
+        if (empty($this->locale)) {
+            $this->addError("locale", "locale can't be empty");
+        }
+
+        if (empty($this->message)) {
+            $this->addError("message", "message can't be empty");
+        }
+
+        $this->translation = (empty($this->translation)) ? null : $this->translation;
     }
 
     /**
      * @return Translation
      */
-    protected function execute()
+    protected
+    function execute()
     {
         $datetime = new \DateTime();
         $translation = new Translation();
@@ -115,7 +136,7 @@ class CreateCommand extends AbstractCommand
             ->setLocale($this->locale)
             ->setMessage($this->message)
             ->setTranslation($this->translation)
-            ->setStatus($this->status)
+            ->setStatus(Translation::STATUS_MANUAL)
             ->setCreated($datetime)
             ->setUpdated($datetime);
 

@@ -105,11 +105,7 @@ class EditCommand extends AbstractCommand
      */
     public function hydrate(array $values)
     {
-        $this->setTextDomain(array_key_exists('textDomain', $values) ? $values['textDomain'] : null);
-        $this->setLocale(array_key_exists('locale', $values) ? $values['locale'] : null);
-        $this->setMessage(array_key_exists('message', $values) ? $values['message'] : null);
         $this->setTranslation(array_key_exists('translation', $values) ? $values['translation'] : null);
-        $this->setStatus(array_key_exists('status', $values) ? $values['status'] : null);
     }
 
     /**
@@ -123,16 +119,10 @@ class EditCommand extends AbstractCommand
         }
 
         if (!($this->translationModel instanceof Translation)) {
-            $this->addError("user", "invalid translation");
+            $this->addError("translation", "invalid translation");
         }
 
         $this->translation = (empty($this->translation)) ? null : $this->translation;
-
-        $this->status = Translation::STATUS_MANUAL;
-
-        if (empty($this->message)) {
-            $this->addError("message", "message can't be empty");
-        }
     }
 
     /**
@@ -143,11 +133,8 @@ class EditCommand extends AbstractCommand
         $dateTime = new \DateTime();
 
         $this->translationModel
-            ->setMessage($this->message)
             ->setTranslation($this->translation)
-            ->setLocale($this->locale)
-            ->setTextDomain($this->textDomain)
-            ->setStatus($this->status)
+            ->setStatus(Translation::STATUS_MANUAL)
             ->setUpdated($dateTime);
 
         $this->getServiceManager()->get('TableGateway')->get('Translation42\Translation')->update($this->translationModel);
