@@ -10,9 +10,11 @@
 namespace Translation42\Controller;
 
 use Admin42\Mvc\Controller\AbstractAdminController;
+use Translation42\Command\Translation\EditCommand;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
 use Zend\Db\Sql\Where;
+use Zend\Http\Response;
 
 class TranslationController extends AbstractAdminController
 {
@@ -144,6 +146,7 @@ class TranslationController extends AbstractAdminController
 
         if ($prg !== false) {
             if ($isEditMode === true) {
+                /** @var EditCommand $cmd */
                 $cmd = $this->getCommand('Translation42\Translation\Edit');
                 $cmd->setTranslationId($this->params()->fromRoute('id'));
             } else {
@@ -157,19 +160,23 @@ class TranslationController extends AbstractAdminController
                 ->setData($prg)
                 ->run();
             if (!$formCommand->hasErrors()) {
-                $this->flashMessenger()->addSuccessMessage([
-                    'title' => 'toaster.translation.detail.title.success',
-                    'message' => 'toaster.translation.detail.message.success',
-                ]);
+                $this->flashMessenger()->addSuccessMessage(
+                    [
+                        'title'   => 'toaster.translation.detail.title.success',
+                        'message' => 'toaster.translation.detail.message.success',
+                    ]
+                );
 
                 return $this->redirect()->toRoute(
                     'admin/translation'
                 );
             } else {
-                $this->flashMessenger()->addErrorMessage([
-                    'title' => 'toaster.translation.detail.title.error',
-                    'message' => 'toaster.translation.detail.message.error',
-                ]);
+                $this->flashMessenger()->addErrorMessage(
+                    [
+                        'title'   => 'toaster.translation.detail.title.error',
+                        'message' => 'toaster.translation.detail.message.error',
+                    ]
+                );
             }
         } else {
             if ($isEditMode === true) {

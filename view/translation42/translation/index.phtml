@@ -32,23 +32,37 @@
                     <th>
                         <select st-search42="locale" class="form-control">
                             <option value="">All locales</option>
-                            <option value="de-AT" <?= $this->params()->fromQuery('locale') == 'de-AT' ? 'selected' : '' ?>>de-AT</option>
-                            <option value="de-DE" <?= $this->params()->fromQuery('locale') == 'de-DE' ? 'selected' : '' ?>>de-DE</option>
-                            <option value="en-US" <?= $this->params()->fromQuery('locale') == 'en-US' ? 'selected' : '' ?>>en-US</option>
+                            <option value="de-AT" <?= $this->params()->fromQuery('locale') == 'de-AT' ? 'selected'
+                                : '' ?>>de-AT
+                            </option>
+                            <option value="de-DE" <?= $this->params()->fromQuery('locale') == 'de-DE' ? 'selected'
+                                : '' ?>>de-DE
+                            </option>
+                            <option value="en-US" <?= $this->params()->fromQuery('locale') == 'en-US' ? 'selected'
+                                : '' ?>>en-US
+                            </option>
                         </select>
                     </th>
                     <th>
                         <select st-search42="textDomain" class="form-control">
                             <option value="">All text domains</option>
-                            <option value="frontend" <?= $this->params()->fromQuery('text-domain') == 'frontend' ? 'selected' : '' ?>>Frontend</option>
-                            <option value="mobile" <?= $this->params()->fromQuery('text-domain') == 'mobile' ? 'selected' : '' ?>>Mobile</option>
+                            <option value="frontend" <?= $this->params()->fromQuery('text-domain') == 'frontend'
+                                ? 'selected' : '' ?>>Frontend
+                            </option>
+                            <option value="mobile" <?= $this->params()->fromQuery('text-domain') == 'mobile'
+                                ? 'selected' : '' ?>>Mobile
+                            </option>
                         </select>
                     </th>
                     <th>
                         <select st-search42="status" class="form-control">
                             <option value="">All statuses</option>
-                            <option value="auto" <?= $this->params()->fromQuery('status') == 'auto' ? 'selected' : '' ?>>Auto-ganerated</option>
-                            <option value="manual" <?= $this->params()->fromQuery('status') == 'manual' ? 'selected' : '' ?>>Manual</option>
+                            <option value="auto" <?= $this->params()->fromQuery('status') == 'auto' ? 'selected'
+                                : '' ?>>Auto-ganerated
+                            </option>
+                            <option value="manual" <?= $this->params()->fromQuery('status') == 'manual' ? 'selected'
+                                : '' ?>>Manual
+                            </option>
                         </select>
                     </th>
                     <th></th>
@@ -57,7 +71,9 @@
                 <tbody ng-hide="isLoading">
                 <tr ng-repeat="row in collection">
                     <td>{{row.message}}</td>
-                    <td>{{row.translation}}</td>
+                    <td class="{{row.status == 'manual' && row.translation == null ? 'font-italic font-bold text-danger' : ''}}">
+                        {{row.status == 'manual' && row.translation == null ? 'Missing translation' : row.translation}}
+                    </td>
                     <td>
                         <span class="flag-icon flag-icon-{{row.locale.split('-')[1].toLowerCase()}}"></span>
                         {{row.locale}}
@@ -65,7 +81,8 @@
                     <td>{{row.textDomain}}</td>
                     <td>{{row.status}}</td>
                     <td>
-                        <a class="btn btn-info btn-sm" ng-href="<?= $this->url("admin/translation/edit", array('id' => "{{ row.id }}"))?>">
+                        <a class="btn btn-info btn-sm"
+                           ng-href="<?= $this->url("admin/translation/edit", ['id' => "{{ row.id }}"]) ?>">
                             <span class="fa fa-pencil" aria-hidden="true"></span>
                             <?= $this->translate('button.edit', 'admin') ?>
                         </a>

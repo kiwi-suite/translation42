@@ -20,6 +20,11 @@ class EditCommand extends AbstractCommand
     private $translationId;
 
     /**
+     * @var Translation
+     */
+    private $translationModel;
+
+    /**
      * @var string
      */
     private $textDomain;
@@ -100,7 +105,7 @@ class EditCommand extends AbstractCommand
      */
     public function hydrate(array $values)
     {
-        $this->setTextDomain(array_key_exists('text_domain', $values) ? $values['text_domain'] : null);
+        $this->setTextDomain(array_key_exists('textDomain', $values) ? $values['textDomain'] : null);
         $this->setLocale(array_key_exists('locale', $values) ? $values['locale'] : null);
         $this->setMessage(array_key_exists('message', $values) ? $values['message'] : null);
         $this->setTranslation(array_key_exists('translation', $values) ? $values['translation'] : null);
@@ -112,6 +117,22 @@ class EditCommand extends AbstractCommand
      */
     protected function preExecute()
     {
+        if (!empty($this->translationId)) {
+            $this->translationModel =
+                $this->getTableGateway('Translation42\Translation')->selectByPrimary((int)$this->translationId);
+        }
+
+        if (!($this->translationModel instanceof Translation)) {
+            $this->addError("user", "invalid translation");
+        }
+
+        $this->translation = (empty($this->translation)) ? null : $this->translation;
+
+        $this->status = Translation::STATUS_MANUAL;
+
+        if (empty($this->message)) {
+            $this->addError("message", "message can't be empty");
+        }
     }
 
     /**
@@ -119,5 +140,18 @@ class EditCommand extends AbstractCommand
      */
     protected function execute()
     {
+        $dateTime = new \DateTime();
+
+        $this->translationModel
+            ->setMessage($this->message)
+            ->setTranslation($this->translation)
+            ->setLocale($this->locale)
+            ->setTextDomain($this->textDomain)
+            ->setStatus($this->status)
+            ->setUpdated($dateTime);
+
+        $this->getServiceManager()->get('TableGateway')->get('Translation42\Translation')->update($this->translationModel);
+
+        return $this->translationModel;
     }
 }
