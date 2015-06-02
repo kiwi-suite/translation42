@@ -81,7 +81,6 @@ class TranslationController extends AbstractAdminController
 
             $regions = [];
             foreach ($locales as $locale) {
-
                 $localeNumTranslated = $tableGateway->select(
                     [
                         'textDomain' => $textDomainConfig['text_domain'],
