@@ -32,36 +32,33 @@
                     <th>
                         <select st-search42="locale" class="form-control">
                             <option value="">All locales</option>
-                            <option value="de-AT" <?= $this->params()->fromQuery('locale') == 'de-AT' ? 'selected'
-                                : '' ?>>de-AT
-                            </option>
-                            <option value="de-DE" <?= $this->params()->fromQuery('locale') == 'de-DE' ? 'selected'
-                                : '' ?>>de-DE
-                            </option>
-                            <option value="en-US" <?= $this->params()->fromQuery('locale') == 'en-US' ? 'selected'
-                                : '' ?>>en-US
-                            </option>
+                            <?php foreach ($locales as $locale => $localeDisplay): ?>
+                                <option value="<?= $locale ?>" <?= $this->params()->fromQuery('locale') == $locale
+                                    ? 'selected'
+                                    : '' ?>><?= $localeDisplay ?> (<?= $locale ?>)
+                                </option>
+                            <?php endforeach ?>
                         </select>
                     </th>
                     <th>
                         <select st-search42="textDomain" class="form-control">
                             <option value="">All text domains</option>
-                            <option value="frontend" <?= $this->params()->fromQuery('text-domain') == 'frontend'
-                                ? 'selected' : '' ?>>Frontend
-                            </option>
-                            <option value="mobile" <?= $this->params()->fromQuery('text-domain') == 'mobile'
-                                ? 'selected' : '' ?>>Mobile
-                            </option>
+                            <?php foreach ($textDomains as $textDomain): ?>
+                                <option value="<?= $textDomain['text_domain'] ?>" <?= $this->params()->fromQuery('text-domain') == $textDomain['text_domain']
+                                    ? 'selected'
+                                    : '' ?>><?= $textDomain['display_name'] ?>
+                                </option>
+                            <?php endforeach ?>
                         </select>
                     </th>
                     <th>
                         <select st-search42="status" class="form-control">
                             <option value="">All statuses</option>
                             <option value="auto" <?= $this->params()->fromQuery('status') == 'auto' ? 'selected'
-                                : '' ?>>Auto-ganerated
+                                : '' ?>><?= $this->translate('status.auto', 'admin') ?>
                             </option>
                             <option value="manual" <?= $this->params()->fromQuery('status') == 'manual' ? 'selected'
-                                : '' ?>>Manual
+                                : '' ?>><?= $this->translate('status.manual', 'admin') ?>
                             </option>
                         </select>
                     </th>

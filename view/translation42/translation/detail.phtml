@@ -27,13 +27,15 @@
                     <div class="col-sm-6">
                         <div class="list-group">
                             <div class="list-group-item">
+                                <?php if ($this->translation): ?>
                                 <h4 class="list-group-item-heading">
                                     <span class="flag-icon flag-icon-<?= strtolower(
                                         explode('-', $this->translation->getLocale())[1]
                                     ) ?>"></span> <?= $this->translation->getLocale() ?>
                                 </h4>
                                 <hr/>
-                                <?= $this->formRender($this->form) ?>
+                                <?php endif ?>
+                                <?= $this->form($this->form) ?>
                             </div>
                         </div>
                     </div>

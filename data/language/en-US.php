@@ -15,4 +15,7 @@ return [
     'label.status'                => 'Status',
 
     'button.message-key-add'      => 'Add Message Translation',
+
+    'status.auto'                 => 'Auto-generated',
+    'status.manual'               => 'Manual',
 ];

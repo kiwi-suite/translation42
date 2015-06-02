@@ -24,29 +24,15 @@ class CreateForm extends Form
     {
         $this->add(new Csrf('csrf'));
 
-        $textDomain = new Select(
-            'textDomain',
-            [
-                'options' => [
-                    'frontend' => 'Frontend',
-                    'mobile'   => 'Mobile',
-                ],
-            ]
-        );
-        //$textDomain->setValue('mobile');
+        /** @var Select $textDomain */
+        $textDomain = $this->getFormFactory()->getFormElementManager()->get('text_domain');
+        $textDomain->setName('textDomain');
         $textDomain->setLabel('label.textDomain');
         $this->add($textDomain);
 
-        $locale = new Select(
-            'locale',
-            [
-                'options' => [
-                    'de-AT' => 'de-AT',
-                    'de-DE' => 'de-DE',
-                    'en-US' => 'en-US',
-                ],
-            ]
-        );
+        /** @var Select $locale */
+        $locale = $this->getFormFactory()->getFormElementManager()->get('locale');
+        $locale->setName('locale');
         $locale->setLabel('label.locale');
         $this->add($locale);
 

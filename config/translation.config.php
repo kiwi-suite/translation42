@@ -2,8 +2,8 @@
 namespace Translation42;
 
 return [
-    'translator' => [
-        'translation_file_patterns' => [
+    'translator'          => [
+        'translation_file_patterns'    => [
             [
                 'type'        => 'phparray',
                 'base_dir'    => __DIR__ . '/../data/language/',
@@ -11,25 +11,36 @@ return [
                 'text_domain' => 'admin',
             ],
         ],
-        'remote_translation' => [
-            [
-                'type'        => 'database',
-                'text_domain' => 'frontend',
-            ],
-            [
-                'type'        => 'database',
-                'text_domain' => 'mobile',
-            ],
+        'remote_translation'           => [
+            /**
+             * add database remote translation text domains as follows:
+             */
+            //[
+            //    'type'         => 'database',
+            //    'text_domain'  => 'frontend',
+            //    'display_name' => 'Frontend',
+            //],
+            //[
+            //    'type'         => 'database',
+            //    'text_domain'  => 'mobile',
+            //    'display_name' => 'Mobile',
+            //],
         ],
-        'event_manager_enabled' => true,
+        'event_manager_enabled'        => true,
         'missing_translations_handler' => [
             'service' => 'Translation42/TranslationMissingListener',
-            'action' => 'autoGenerateMissingTranslation',
+            'action'  => 'autoGenerateMissingTranslation',
         ],
     ],
     'translation_manager' => [
         'factories' => [
             'database' => 'Translation42\I18n\Translator\Service\DatabaseTranslationLoaderFactory',
         ]
+    ],
+    'form_elements'       => [
+        'factories' => [
+            'locale'      => 'Translation42\FormElements\Service\LocaleFactory',
+            'text_domain' => 'Translation42\FormElements\Service\TextDomainFactory',
+        ],
     ],
 ];
