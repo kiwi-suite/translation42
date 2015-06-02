@@ -137,7 +137,9 @@ class EditCommand extends AbstractCommand
             ->setStatus(Translation::STATUS_MANUAL)
             ->setUpdated($dateTime);
 
-        $this->getServiceManager()->get('TableGateway')->get('Translation42\Translation')->update($this->translationModel);
+        $this->getServiceManager()->get('TableGateway')->get('Translation42\Translation')->update(
+            $this->translationModel
+        );
 
         return $this->translationModel;
     }

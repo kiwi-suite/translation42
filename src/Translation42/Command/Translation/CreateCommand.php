@@ -135,8 +135,7 @@ class CreateCommand extends AbstractCommand
     /**
      * @return Translation
      */
-    protected
-    function execute()
+    protected function execute()
     {
         $datetime = new \DateTime();
         $translation = new Translation();

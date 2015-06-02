@@ -10,7 +10,6 @@
 namespace Translation42\Form\Translation;
 
 use Zend\Form\Element\Csrf;
-use Zend\Form\Element\Text;
 use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
 

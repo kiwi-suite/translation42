@@ -25,8 +25,9 @@ class CreateForm extends Form
         $this->add(new Csrf('csrf'));
 
         $textDomain = new Select(
-            'textDomain', [
-                'options'        => [
+            'textDomain',
+            [
+                'options' => [
                     'frontend' => 'Frontend',
                     'mobile'   => 'Mobile',
                 ],
@@ -37,8 +38,9 @@ class CreateForm extends Form
         $this->add($textDomain);
 
         $locale = new Select(
-            'locale', [
-                'options'        => [
+            'locale',
+            [
+                'options' => [
                     'de-AT' => 'de-AT',
                     'de-DE' => 'de-DE',
                     'en-US' => 'en-US',
