@@ -259,7 +259,10 @@ class TranslationController extends AbstractAdminController
                         'message' => 'toaster.translation.edit.message.success',
                     ]
                 );
-                return $this->redirect()->toRoute('admin/translation/edit', ['id' => $translation->getId()]);
+                return $this->redirect()->toUrl(
+                    $this->url()->fromRoute('admin/translation/list') . ($_SERVER['QUERY_STRING'] ?
+                        '?' . $_SERVER['QUERY_STRING'] : '')
+                );
             } else {
                 $this->flashMessenger()->addErrorMessage(
                     [

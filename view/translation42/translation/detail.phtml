@@ -6,7 +6,9 @@
 </div>
 
 <div class="wrapper-md">
-    <form class="form-horizontal" role="form" action="<?= $this->url(null, [], [], true) ?>" method="post">
+    <form class="form-horizontal" role="form"
+          action="<?= $this->url(null, [], [], true) ?><?= $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING']
+              : '' ?>" method="post">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <?php if ($this->translation): ?>
@@ -28,12 +30,12 @@
                         <div class="list-group">
                             <div class="list-group-item">
                                 <?php if ($this->translation): ?>
-                                <h4 class="list-group-item-heading">
+                                    <h4 class="list-group-item-heading">
                                     <span class="flag-icon flag-icon-<?= strtolower(
                                         explode('-', $this->translation->getLocale())[1]
                                     ) ?>"></span> <?= $this->translation->getLocale() ?>
-                                </h4>
-                                <hr/>
+                                    </h4>
+                                    <hr/>
                                 <?php endif ?>
                                 <?= $this->form($this->form) ?>
                             </div>
