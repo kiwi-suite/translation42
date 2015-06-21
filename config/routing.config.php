@@ -26,6 +26,15 @@ return [
                                     ],
                                 ],
                             ],
+                            'export'   => [
+                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                'options' => [
+                                    'route'    => 'export/',
+                                    'defaults' => [
+                                        'action' => 'export',
+                                    ],
+                                ],
+                            ],
                             'edit'   => [
                                 'type'    => 'Core42\Mvc\Router\Http\AngularSegment',
                                 'options' => [

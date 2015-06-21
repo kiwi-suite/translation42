@@ -15,6 +15,7 @@ return [
     'label.status'                => 'Status',
 
     'button.message-key-add'      => 'Add Message Translation',
+    'button.text-domain-export'   => 'Export Messages',
 
     'status.auto'                 => 'Auto-generated',
     'status.manual'               => 'Manual',

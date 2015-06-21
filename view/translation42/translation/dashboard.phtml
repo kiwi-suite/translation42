@@ -13,13 +13,15 @@
                         <span class="panel-title">
                             <?= ucfirst($textDomain['text_domain']) ?>
                         </span>
-                        <a href="<?= $this->url(
-                            'admin/translation/list'
-                        ) ?>?text-domain=<?= $textDomain['text_domain'] ?>">
-                            <span class="panel-title pull-right text-muted">
+
+                        <div class="panel-title pull-right text-muted">
+                            <a href="<?= $this->url(
+                                'admin/translation/list'
+                            ) ?>?text-domain=<?= $textDomain['text_domain'] ?>">
                                 <?= $textDomain['num_total'] ?> Messages
-                            </span>
-                        </a>
+                            </a>
+                            <a class="btn btn-default btn-xs" href="<?= $this->url('admin/translation/export') ?>"><span class="fa fa-share"></span></a>
+                        </div>
                     </div>
 
                     <div class="panel-body">

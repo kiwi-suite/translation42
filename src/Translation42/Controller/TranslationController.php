@@ -18,6 +18,7 @@ use Translation42\Form\Translation\EditForm;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
 use Zend\Db\Sql\Where;
+use Zend\Http\Headers;
 use Zend\Http\Response;
 
 class TranslationController extends AbstractAdminController
@@ -155,6 +156,52 @@ class TranslationController extends AbstractAdminController
             'locales'     => $locales,
             'textDomains' => $textDomainConfigs,
         ];
+    }
+
+    /**
+     *
+     */
+    public function exportAction()
+    {
+        $messages = [
+            'EXPORT' => $this->params()->fromRoute('text-domain')
+        ];
+
+        // TODO: make command -> pipe to file
+
+        // TODO: allow different text-domain and locale scopes for export
+        //$textDomain = $this->params()->fromQuery('text-domain');
+        //$locale = $this->params()->fromQuery('locale');
+
+
+        // todo: allow different export types (dropdown in gui for: json, phparray)
+
+        // json
+        //return new JsonModel(['EXPORT '.$this->params()->fromRoute('text-domain')]);
+        $fileContent = json_encode($messages);
+        $fileName = 'messages.json';
+
+        // phparray
+        //$fileContent = var_export($messages, true);
+        //$fileName = 'messages.php';
+
+        $headers = new Headers;
+        $headers->addHeaders(
+            [
+                'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+                'Content-Type'        => 'application/octet-stream',
+                'Content-Length'      => strlen($fileContent),
+                'Expires'             => '@0', // @0, because zf2 parses date as string to \DateTime() object
+                'Cache-Control'       => 'must-revalidate',
+                'Pragma'              => 'public'
+            ]
+        );
+
+        $response = new Response;
+        $response->setContent($fileContent);
+        $response->setHeaders($headers);
+
+        return $response;
     }
 
     /**

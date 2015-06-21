@@ -55,7 +55,8 @@
                         <select st-search42="textDomain" class="form-control">
                             <option value="">All text domains</option>
                             <?php foreach ($textDomains as $textDomain): ?>
-                                <option value="<?= $textDomain['text_domain'] ?>" <?= $this->params()->fromQuery('text-domain') == $textDomain['text_domain']
+                                <option value="<?= $textDomain['text_domain'] ?>" <?=
+                                $this->params()->fromQuery('text-domain') == $textDomain['text_domain']
                                     ? 'selected'
                                     : '' ?>><?= $textDomain['display_name'] ?>
                                 </option>
@@ -79,7 +80,9 @@
                     <td>{{row.textDomain}}</td>
                     <td>
                         <a class="btn btn-info btn-sm"
-                           ng-href="<?= $this->url("admin/translation/edit", ['id' => "{{ row.id }}"]) ?><?= $_SERVER['QUERY_STRING'] ? '?'.$_SERVER['QUERY_STRING'] : '' ?>">
+                           ng-href="<?= $this->url(
+                               "admin/translation/edit", ['id' => "{{ row.id }}"]
+                           ) ?><?= $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '' ?>">
                             <span class="fa fa-pencil" aria-hidden="true"></span>
                             <?= $this->translate('button.edit', 'admin') ?>
                         </a>
@@ -102,12 +105,22 @@
         </div>
         <div class="panel-footer">
             <a class="btn btn-default"
-               href="<?= $this->url(
-                   'admin/translation/add', ['text-domain' => $this->params()->fromRoute('text-domain')]
-               ) ?>">
+               href="<?= $this->url('admin/translation/add') ?>">
                 <span class="fa fa-plus-circle"></span>
                 <?= $this->translate('button.message-key-add', 'admin') ?>
             </a>
+
+            <?php if($this->params()->fromQuery('text-domain')): ?>
+            <div class="pull-right">
+                <a class="btn btn-default"
+                   href="<?= $this->url(
+                       'admin/translation/export', ['text-domain' => $this->params()->fromQuery('text-domain')]
+                   ) ?>" target="_blank">
+                    <span class="fa fa-share"></span>
+                    <?= $this->translate('button.text-domain-export', 'admin') ?>
+                </a>
+            </div>
+            <?php endif ?>
         </div>
     </div>
 </div>

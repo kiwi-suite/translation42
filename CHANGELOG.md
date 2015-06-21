@@ -8,5 +8,6 @@
 
 ### Features
 
-- export php array
-- export json
+- export all or by text-domain
+- export via ui (json)
+- export via cli (json, php array)
