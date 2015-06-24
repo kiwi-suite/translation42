@@ -1,4 +1,12 @@
 <?php
+/**
+ * translation42 (www.raum42.at)
+ *
+ * @link      http://www.raum42.at
+ * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
+ *
+ */
+
 namespace Translation42\Selector\SmartTable;
 
 use Admin42\Selector\SmartTable\AbstractSmartTableSelector;
@@ -35,7 +43,7 @@ class TranslationSelector extends AbstractSmartTableSelector
     protected function getDatabaseTypeMap()
     {
         return [
-            'id' => 'Mysql/Integer',
+            'id'      => 'Mysql/Integer',
             'updated' => 'Mysql/Datetime',
             'created' => 'Mysql/Datetime',
         ];

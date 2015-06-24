@@ -3,7 +3,7 @@
  * translation42 (www.raum42.at)
  *
  * @link      http://www.raum42.at
- * @copyright Copyright (c) 2015 raum42 OG (http://www.raum42.at)
+ * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
  *
  */
 
@@ -19,6 +19,7 @@ class Module implements ConfigProviderInterface
     public function getConfig()
     {
         return array_merge(
+            include __DIR__ . '/../../config/cli.config.php',
             include __DIR__ . '/../../config/module.config.php',
             include __DIR__ . '/../../config/navigation.config.php',
             include __DIR__ . '/../../config/routing.config.php',

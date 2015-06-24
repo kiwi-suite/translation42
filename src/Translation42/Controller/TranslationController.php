@@ -1,9 +1,9 @@
 <?php
 /**
- * admin42 (www.raum42.at)
+ * translation42 (www.raum42.at)
  *
  * @link      http://www.raum42.at
- * @copyright Copyright (c) 2010-2014 raum42 OG (http://www.raum42.at)
+ * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
  *
  */
 
@@ -13,6 +13,7 @@ use Admin42\Mvc\Controller\AbstractAdminController;
 use Core42\I18n\Localization\Localization;
 use Translation42\Command\Translation\CreateCommand;
 use Translation42\Command\Translation\EditCommand;
+use Translation42\Command\Translation\ExportCommand;
 use Translation42\Form\Translation\CreateForm;
 use Translation42\Form\Translation\EditForm;
 use Translation42\Model\Translation;
@@ -40,6 +41,7 @@ class TranslationController extends AbstractAdminController
         $textDomainConfigs = $config['translator']['remote_translation'];
         $textDomains = [];
         foreach ($textDomainConfigs as $textDomainConfig) {
+
             // TODO: make it a single query to count sums
             $numTotal = $tableGateway->select(['textDomain' => $textDomainConfig['text_domain']])->count();
 
@@ -163,34 +165,37 @@ class TranslationController extends AbstractAdminController
      */
     public function exportAction()
     {
-        $messages = [
-            'EXPORT' => $this->params()->fromRoute('text-domain')
-        ];
+        // TODO: allow different export types (dropdown in gui for: json, phparray)
 
-        // TODO: make command -> pipe to file
+        /** @var ExportCommand $cmd */
+        $cmd = $this->getCommand('Translation42\Translation\Export');
+        $cmd->setFormat('json');
+        $cmd->setTextDomain($this->params()->fromRoute('text-domain'));
+        $cmd->run();
 
-        // TODO: allow different text-domain and locale scopes for export
-        //$textDomain = $this->params()->fromQuery('text-domain');
-        //$locale = $this->params()->fromQuery('locale');
+        if(!$cmd->hasErrors()) {
 
+        } else {
 
-        // todo: allow different export types (dropdown in gui for: json, phparray)
-
-        // json
-        //return new JsonModel(['EXPORT '.$this->params()->fromRoute('text-domain')]);
-        $fileContent = json_encode($messages);
-        $fileName = 'messages.json';
-
-        // phparray
-        //$fileContent = var_export($messages, true);
-        //$fileName = 'messages.php';
+            foreach($cmd->getErrors() as $errorKey => $errorMessages) {
+                foreach($errorMessages as $errorMessage) {
+                    $this->flashMessenger()->addErrorMessage(
+                        [
+                            'title'   => 'toaster.translation.export.title.error',
+                            'message' => $errorMessage,
+                        ]
+                    );
+                }
+            }
+            return $this->redirect()->toRoute('admin/translation/list');
+        }
 
         $headers = new Headers;
         $headers->addHeaders(
             [
-                'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+                'Content-Disposition' => 'attachment; filename="' . $cmd->getFileName() . '"',
                 'Content-Type'        => 'application/octet-stream',
-                'Content-Length'      => strlen($fileContent),
+                'Content-Length'      => strlen($cmd->getOutput()),
                 'Expires'             => '@0', // @0, because zf2 parses date as string to \DateTime() object
                 'Cache-Control'       => 'must-revalidate',
                 'Pragma'              => 'public'
@@ -198,7 +203,7 @@ class TranslationController extends AbstractAdminController
         );
 
         $response = new Response;
-        $response->setContent($fileContent);
+        $response->setContent($cmd->getOutput());
         $response->setHeaders($headers);
 
         return $response;

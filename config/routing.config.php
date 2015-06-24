@@ -29,7 +29,7 @@ return [
                             'export'   => [
                                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                                 'options' => [
-                                    'route'    => 'export/',
+                                    'route'    => 'export/:text-domain',
                                     'defaults' => [
                                         'action' => 'export',
                                     ],
