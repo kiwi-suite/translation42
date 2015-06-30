@@ -9,8 +9,8 @@
 
 namespace Translation42\Form\Translation;
 
+use Admin42\FormElements\Wysiwyg;
 use Zend\Form\Element\Csrf;
-use Zend\Form\Element\Textarea;
 use Zend\Form\Form;
 
 class EditForm extends Form
@@ -22,7 +22,7 @@ class EditForm extends Form
     {
         $this->add(new Csrf('csrf'));
 
-        $translation = new TextArea("translation");
+        $translation = new Wysiwyg("translation");
         $translation->setLabel("label.translation");
         $this->add($translation);
     }
