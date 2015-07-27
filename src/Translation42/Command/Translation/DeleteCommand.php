@@ -52,7 +52,7 @@ class DeleteCommand extends AbstractCommand
     protected function preExecute()
     {
         if (!empty($this->translationId)) {
-            $this->translation = $this->getTableGateway('Admin42\User')->selectByPrimary((int)$this->translationId);
+            $this->translation = $this->getTableGateway('Translation42\Translation')->selectByPrimary((int)$this->translationId);
         }
 
         if (!($this->translation instanceof Translation)) {
@@ -65,6 +65,6 @@ class DeleteCommand extends AbstractCommand
      */
     protected function execute()
     {
-        $this->getTableGateway('Admin42\Translation')->delete($this->translation);
+        $this->getTableGateway('Translation42\Translation')->delete($this->translation);
     }
 }
