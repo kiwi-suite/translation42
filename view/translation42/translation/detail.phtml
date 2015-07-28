@@ -27,19 +27,15 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-6">
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <?php if ($this->translation): ?>
-                                    <h4 class="list-group-item-heading">
-                                    <span class="flag-icon flag-icon-<?= strtolower(
-                                        explode('-', $this->translation->getLocale())[1]
-                                    ) ?>"></span> <?= $this->translation->getLocale() ?>
-                                    </h4>
-                                    <hr/>
-                                <?php endif ?>
-                                <?= $this->form($this->form) ?>
-                            </div>
-                        </div>
+                        <?php if ($this->translation): ?>
+                            <h4 class="list-group-item-heading">
+                            <span class="flag-icon flag-icon-<?= strtolower(
+                                explode('-', $this->translation->getLocale())[1]
+                            ) ?>"></span> <?= $this->translation->getLocale() ?>
+                            </h4>
+                            <hr/>
+                        <?php endif ?>
+                        <?= $this->form($this->form) ?>
                     </div>
                     <div class="col-sm-6">
                         <?php if ($this->translation): ?>
@@ -71,7 +67,7 @@
                 </div>
                 <div class="panel-footer">
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-md-10">
+                        <div class="col-sm-offset-1 col-md-10">
                             <button type="submit" class="btn btn-primary">
                                 <span class="fa fa-save"></span>
                                 <?= $this->translate('button.save', 'admin') ?>
