@@ -1,0 +1,120 @@
+<div class="wrapper-md bg-white b-b box-shadow">
+    <h1 class="m-n font-thin h3">
+        <span class="fa fa-globe"></span>
+        <?= $this->translate('title.translation.dashboard', 'admin') ?>
+    </h1>
+</div>
+<div class="wrapper-md">
+    <div class="row">
+        <?php foreach ($this->textDomains as $textDomain): ?>
+            <div class="col-sm-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="panel-title">
+                            <?= ucfirst($textDomain['text_domain']) ?>
+                        </span>
+
+                        <div class="panel-title pull-right text-muted">
+                            <a href="<?= $this->url(
+                                'admin/translation/list'
+                            ) ?>?text-domain=<?= $textDomain['text_domain'] ?>">
+                                <?= $textDomain['num_total'] ?> Messages
+                            </a>
+                            <a class="btn btn-default btn-xs" href="<?= $this->url('admin/translation/export', ['text-domain' => $textDomain['text_domain']]) ?>"><span class="fa fa-share"></span></a>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="progress m-t-sm ng-isolate-scope" max="max" value="dynamic" type="info">
+                            <div class="progress-bar progress-bar-success" role="progressbar"
+                                 aria-valuenow="<?= $textDomain['percent_translated'] ?>" aria-valuemin="0"
+                                 aria-valuemax="<?= $textDomain['num_total'] ?>" aria-valuetext="50%"
+                                 style="width: <?= $textDomain['percent_translated'] ?>%;">
+                                <span style="white-space:nowrap;"><?= $textDomain['percent_translated'] ?>%</span>
+                            </div>
+
+                            <?php if ($textDomain['num_missing_auto_generated'] > 0): ?>
+                                <div class="progress-bar progress-bar-warning progress-bar-striped"
+                                     style="width: <?= $textDomain['percent_missing_auto_generated'] ?>%">
+                                    <span><?= $textDomain['num_missing_auto_generated'] ?></span>
+                                </div>
+                            <?php endif ?>
+
+                            <?php if ($textDomain['num_missing_manual'] > 0): ?>
+                                <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                     style="width: <?= $textDomain['percent_missing_manual'] ?>%">
+                                    <span><?= $textDomain['num_missing_manual'] ?></span>
+                                </div>
+                            <?php endif ?>
+                        </div>
+
+                        <div class="list-group">
+                            <span class="list-group-item">
+                                <!--<i class="fa fa-chevron-right text-muted"></i>-->
+                                <span class="badge <?= $textDomain['num_translated'] > 0 ? 'bg-success'
+                                    : '' ?>"><?= $textDomain['num_translated'] ?></span>
+                                <i class="fa fa-check fa-fw m-r-xs"></i> Translated Messages
+                            </span>
+                            <span class="list-group-item">
+                                <!--<i class="fa fa-chevron-right text-muted"></i>-->
+                                <span class="badge <?= $textDomain['num_missing_manual'] > 0 ? 'bg-danger'
+                                    : '' ?>">
+                                    <?= $textDomain['num_missing_manual'] ?>
+                                    <?= $textDomain['num_missing_manual'] > 0
+                                    || $textDomain['num_missing_auto_generated'] > 0 ? 'empty' : '' ?>
+                                </span>
+                                <?php if ($textDomain['num_missing_auto_generated'] > 0): ?>
+                                    <span class="badge bg-warning"><?= $textDomain['num_missing_auto_generated'] ?>
+                                        generated</span>
+                                <?php endif ?>
+                                <i class="fa fa-question fa-fw m-r-xs"></i> Missing Translations
+                            </span>
+                        </div>
+                        <div class="list-group">
+                            <?php foreach ($textDomain['regions'] as $region): ?>
+                                <a href="<?= $this->url(
+                                    'admin/translation/list'
+                                ) ?>?text-domain=<?= $textDomain['text_domain'] ?>&amp;locale=<?= $region['locale'] ?>"
+                                   class="list-group-item">
+                                    <!--<i class="fa fa-chevron-right text-muted"></i>-->
+                                    <span class="badge <?= $region['num_translated'] > 0 ? 'bg-success'
+                                        : '' ?>"><?= $region['num_translated'] ?></span>
+                                    <?php if ($region['num_missing_total'] > 0): ?>
+                                        <span class="badge bg-danger"><?= $region['num_missing_total'] ?></span>
+                                    <?php endif ?>
+                                    <i class="flag-icon flag-icon-<?= $region['region'] ?> m-r-xs"></i> <?= $region['locale'] ?>
+                                </a>
+                            <?php endforeach ?>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+
+        <div class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="panel-title">
+                        Auto-Generate Tests
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <?= $this->translate('test.test', 'frontend'); ?><br>
+                        <?= $this->translate('test.anotherTest', 'frontend'); ?><br>
+                        <?= $this->translate('test.missing', 'frontend'); ?><br>
+                        <?= $this->translate('test.missing.manual', 'frontend'); ?><br>
+                        <?= $this->translate('test.missing.auto', 'frontend'); ?><br>
+                    </p>
+
+                    <p>
+                        <?= $this->translate('test.test', 'mobile'); ?><br>
+                        <?= $this->translate('test.missing', 'mobile'); ?><br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

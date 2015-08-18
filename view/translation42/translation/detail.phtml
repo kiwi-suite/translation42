@@ -1,0 +1,99 @@
+<div class="wrapper-md bg-white b-b box-shadow">
+    <h1 class="m-n font-thin h3">
+        <span class="fa fa-globe"></span>
+        <?= $this->translate('title.message', 'admin') ?>
+    </h1>
+</div>
+
+<div class="wrapper-md">
+    <div class="row">
+        <div class="<?php if ($this->translation): ?>col-lg-12<?php else: ?>col-lg-6<?php endif ?>">
+            <form class="form-horizontal" role="form"
+                  action="<?= $this->url(null, [], [], true) ?><?= $_SERVER['QUERY_STRING'] ?
+                      '?' . $_SERVER['QUERY_STRING']
+                      : '' ?>" method="post">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <?php if ($this->translation): ?>
+                            <span class="panel-title">
+                                Translation for message "<?= $this->translation->getMessage() ?>"
+                            </span>
+                            <span class="panel-title pull-right text-muted">
+                                <?= ucfirst($this->translation->getTextDomain()) ?>
+                            </span>
+                        <?php else: ?>
+                            <span class="panel-title">
+                            New Message Translation
+                        </span>
+                        <?php endif ?>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="<?php if ($this->translation): ?>col-md-6<?php else: ?>col-md-12<?php endif ?>">
+                                <?php if ($this->translation): ?>
+                                    <h4 class="list-group-item-heading">
+                                    <span class="flag-icon flag-icon-<?= strtolower(
+                                        explode('-', $this->translation->getLocale())[1]
+                                    ) ?>"></span> <?= $this->translation->getLocale() ?>
+                                    </h4>
+                                    <hr/>
+                                <?php endif ?>
+                                <?= $this->form($this->form) ?>
+                            </div>
+                            <div class="col-sm-6">
+                                <?php if ($this->translation): ?>
+                                    <?php if ($this->relatedTranslations && sizeof($this->relatedTranslations) > 0): ?>
+                                        <?php foreach ($this->relatedTranslations as $relatedTranslation): ?>
+                                            <div class="list-group">
+                                                <span class="list-group-item">
+                                                    <h4 class="list-group-item-heading">
+                                                        <span class="flag-icon flag-icon-<?= strtolower(
+                                                            explode('-', $relatedTranslation->getLocale())[1]
+                                                        ) ?>"></span> <?= $relatedTranslation->getLocale() ?>
+                                                    </h4>
+                                                    <hr/>
+                                                    <p>
+                                                        <?= nl2br($relatedTranslation->getTranslation()) ?>
+                                                    </p>
+                                                </span>
+                                            </div>
+                                        <?php endforeach ?>
+                                    <?php else: ?>
+                                        <div class="list-group">
+                                            <span class="list-group-item">
+                                                Message was not yet translated to other languages for <?= ucfirst(
+                                                    $this->translation->getTextDomain()
+                                                ) ?>.
+                                            </span>
+                                        </div>
+                                    <?php endif ?>
+                                <?php endif ?>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="form-group">
+                                <div class="col-sm-offset-1 col-md-10">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="fa fa-save"></span>
+                                        <?= $this->translate('button.save', 'admin') ?>
+                                    </button>
+
+                                    <?php if ($this->params()->fromRoute('isEditMode') == true): ?>
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger dynamic-form-submit"
+                                            data-action="<?= $this->url('admin/translation/delete') ?>"
+                                            data-form-id="<?= $this->params()->fromRoute('id') ?>">
+                                            <span class="fa fa-trash-o"></span>
+                                            <?= $this->translate('button.delete', 'admin') ?>
+                                        </button>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

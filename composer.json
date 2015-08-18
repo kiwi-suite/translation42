@@ -2,7 +2,8 @@
     "name": "fruit42/translation42",
     "type": "zend-module",
     "require": {
-        "php": ">=5.3.23"
+        "php": ">=5.5",
+        "fruit42/core42": "2.0.*"
     },
     "autoload": {
         "psr-0": {
