@@ -66,5 +66,11 @@ class DeleteCommand extends AbstractCommand
     protected function execute()
     {
         $this->getTableGateway('Translation42\Translation')->delete($this->translation);
+
+        $cacheId = 'Zend_I18n_Translator_Messages_' . md5($this->translation->getTextDomain() . $this->translation->getLocale());
+        $translator = $this->getServiceManager()->get('MvcTranslator');
+        if (($cache = $translator->getCache()) !== null) {
+            $cache->removeItem($cacheId);
+        }
     }
 }

@@ -149,6 +149,12 @@ class CreateCommand extends AbstractCommand
 
         $this->getTableGateway('Translation42\Translation')->insert($translation);
 
+        $cacheId = 'Zend_I18n_Translator_Messages_' . md5($this->textDomain . $this->locale);
+        $translator = $this->getServiceManager()->get('MvcTranslator');
+        if (($cache = $translator->getCache()) !== null) {
+            $cache->removeItem($cacheId);
+        }
+
         return $translation;
     }
 }
