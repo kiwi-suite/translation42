@@ -31,6 +31,15 @@ return [
             'service' => 'Translation42/TranslationMissingListener',
             'action'  => 'autoGenerateMissingTranslation',
         ],
+
+        'cache' => [
+            'adapter' => [
+                'name' => 'memory',
+            ],
+            'plugins' => [
+                'Serializer'
+            ],
+        ],
     ],
     'translation_manager' => [
         'factories' => [
