@@ -12,6 +12,7 @@ return [
                                 'route' => 'admin/translation',
                                 'icon'  => 'fa fa-globe fa-fw',
                                 'order' => 9000,
+                                'permission' => 'route/admin/translation'
                             ],
                         ],
                     ],
