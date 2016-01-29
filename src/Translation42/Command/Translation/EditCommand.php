@@ -141,9 +141,9 @@ class EditCommand extends AbstractCommand
             $this->translationModel
         );
 
-        $cacheId = 'Zend_I18n_Translator_Messages_'.md5(
-                $this->translationModel->getTextDomain().$this->translationModel->getLocale()
-            );
+        $cacheId = 'Zend_I18n_Translator_Messages_';
+        $cacheId .= md5($this->translationModel->getTextDomain().$this->translationModel->getLocale());
+
         $translator = $this->getServiceManager()->get('MvcTranslator');
         if (($cache = $translator->getCache()) !== null) {
             $cache->removeItem($cacheId);
