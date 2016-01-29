@@ -173,12 +173,12 @@ class TranslationController extends AbstractAdminController
         $cmd->setTextDomain($this->params()->fromRoute('text-domain'));
         $cmd->run();
 
-        if(!$cmd->hasErrors()) {
+        if (!$cmd->hasErrors()) {
 
         } else {
 
-            foreach($cmd->getErrors() as $errorKey => $errorMessages) {
-                foreach($errorMessages as $errorMessage) {
+            foreach ($cmd->getErrors() as $errorKey => $errorMessages) {
+                foreach ($errorMessages as $errorMessage) {
                     $this->flashMessenger()->addErrorMessage(
                         [
                             'title'   => 'toaster.translation.export.title.error',
@@ -193,7 +193,7 @@ class TranslationController extends AbstractAdminController
         $headers = new Headers;
         $headers->addHeaders(
             [
-                'Content-Disposition' => 'attachment; filename="' . $cmd->getFileName() . '"',
+                'Content-Disposition' => 'attachment; filename="'.$cmd->getFileName().'"',
                 'Content-Type'        => 'application/octet-stream',
                 'Content-Length'      => strlen($cmd->getOutput()),
                 'Expires'             => '@0', // @0, because zf2 parses date as string to \DateTime() object
@@ -312,8 +312,8 @@ class TranslationController extends AbstractAdminController
                     ]
                 );
                 return $this->redirect()->toUrl(
-                    $this->url()->fromRoute('admin/translation/list') . ($_SERVER['QUERY_STRING'] ?
-                        '?' . $_SERVER['QUERY_STRING'] : '')
+                    $this->url()->fromRoute('admin/translation/list').($_SERVER['QUERY_STRING'] ?
+                        '?'.$_SERVER['QUERY_STRING'] : '')
                 );
             } else {
                 $this->flashMessenger()->addErrorMessage(

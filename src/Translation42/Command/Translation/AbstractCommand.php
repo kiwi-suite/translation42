@@ -43,9 +43,9 @@ abstract class AbstractCommand extends \Core42\Command\AbstractCommand
 
         $messages = [];
 
-        foreach($messagesResult as $message) {
+        foreach ($messagesResult as $message) {
             $locale = $message->getLocale();
-            if(!isset($messages[$locale])) {
+            if (!isset($messages[$locale])) {
                 $messages[$locale] = [];
             }
             $messages[$locale][$message->getMessage()] = $message->getTranslation();
