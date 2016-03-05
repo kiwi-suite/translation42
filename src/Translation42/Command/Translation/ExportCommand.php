@@ -12,7 +12,6 @@ namespace Translation42\Command\Translation;
 use Core42\Command\ConsoleAwareTrait;
 use ZF\Console\Route;
 
-
 class ExportCommand extends AbstractCommand
 {
     use ConsoleAwareTrait;
@@ -128,11 +127,11 @@ class ExportCommand extends AbstractCommand
                 break;
             case 'phparray':
                 $extension = 'php';
-                $this->output = '<?php ' . var_export($this->messages, true) . ';';
+                $this->output = '<?php '.var_export($this->messages, true).';';
                 break;
         }
 
-        $this->setFileName('translations-' . $this->textDomain . '.' . $extension);
+        $this->setFileName('translations-'.$this->textDomain.'.'.$extension);
 
         $this->consoleOutput($this->output);
     }

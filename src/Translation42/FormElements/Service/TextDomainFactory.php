@@ -15,7 +15,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class TextDomainFactory implements FactoryInterface
 {
-
     /**
      * Create service
      *

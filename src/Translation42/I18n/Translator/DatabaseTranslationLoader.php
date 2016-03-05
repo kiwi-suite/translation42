@@ -46,5 +46,4 @@ class DatabaseTranslationLoader implements RemoteLoaderInterface
         $domain = new TextDomain($messages);
         return $domain;
     }
-
 }

@@ -15,7 +15,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class LocaleFactory implements FactoryInterface
 {
-
     /**
      * Create service
      *

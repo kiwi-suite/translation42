@@ -20,7 +20,10 @@
                             ) ?>?text-domain=<?= $textDomain['text_domain'] ?>">
                                 <?= $textDomain['num_total'] ?> Messages
                             </a>
-                            <a class="btn btn-default btn-xs" href="<?= $this->url('admin/translation/export', ['text-domain' => $textDomain['text_domain']]) ?>"><span class="fa fa-share"></span></a>
+                            <a class="btn btn-default btn-xs" href="<?= $this->url(
+                                'admin/translation/export',
+                                ['text-domain' => $textDomain['text_domain']]
+                            ) ?>"><span class="fa fa-share"></span></a>
                         </div>
                     </div>
 
@@ -93,6 +96,7 @@
             </div>
         <?php endforeach; ?>
 
+        <?php /*
         <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -116,5 +120,6 @@
                 </div>
             </div>
         </div>
+        */ ?>
     </div>
 </div>
