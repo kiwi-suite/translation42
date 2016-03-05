@@ -78,8 +78,8 @@
                     </td>
                     <td>{{row.status}}</td>
                     <td>{{row.textDomain}}</td>
-                    <td>
-                        <a class="btn btn-info btn-sm"
+                    <td class="text-right">
+                        <a class="btn btn-info btn-xs"
                            ng-href="<?= $this->url(
                                "admin/translation/edit", ['id' => "{{ row.id }}"]
                            ) ?><?= $_SERVER['QUERY_STRING'] ? '?' . $_SERVER['QUERY_STRING'] : '' ?>">
