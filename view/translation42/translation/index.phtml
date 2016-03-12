@@ -79,6 +79,7 @@
                     <td>{{row.status}}</td>
                     <td>{{row.textDomain}}</td>
                     <td class="text-right">
+                        <?php if($this->permission('admin42')->isGranted('route/admin/translation/edit')): ?>
                         <a class="btn btn-info btn-xs"
                            ng-href="<?= $this->url(
                                "admin/translation/edit", ['id' => "{{ row.id }}"]
@@ -86,6 +87,7 @@
                             <span class="fa fa-pencil" aria-hidden="true"></span>
                             <?= $this->translate('button.edit', 'admin') ?>
                         </a>
+                        <?php endif; ?>
                     </td>
                 </tr>
                 </tbody>
@@ -104,11 +106,13 @@
             </table>
         </div>
         <div class="panel-footer">
+            <?php if($this->permission('admin42')->isGranted('route/admin/translation/add')): ?>
             <a class="btn btn-default"
                href="<?= $this->url('admin/translation/add') ?>">
                 <span class="fa fa-plus-circle"></span>
                 <?= $this->translate('button.message-key-add', 'admin') ?>
             </a>
+            <?php endif; ?>
         </div>
     </div>
 </div>
