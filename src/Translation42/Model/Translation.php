@@ -25,7 +25,7 @@ class Translation extends AbstractModel
 {
     const STATUS_AUTO = "auto";
     const STATUS_MANUAL = "manual";
-    
+
     /**
      * @var array
      */
@@ -39,6 +39,4 @@ class Translation extends AbstractModel
         'updated',
         'created',
     ];
-
-
 }

@@ -39,6 +39,4 @@ class TranslationTableGateway extends AbstractTableGateway
      * @var string
      */
     protected $modelPrototype = 'Translation42\\Model\\Translation';
-
-
 }

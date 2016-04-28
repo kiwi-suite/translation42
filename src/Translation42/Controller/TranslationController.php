@@ -173,11 +173,8 @@ class TranslationController extends AbstractAdminController
         $cmd->setTextDomain($this->params()->fromRoute('text-domain'));
         $cmd->run();
 
-        if (!$cmd->hasErrors()) {
-
-        } else {
-
-            foreach ($cmd->getErrors() as $errorKey => $errorMessages) {
+        if ($cmd->hasErrors()) {
+            foreach ($cmd->getErrors() as $errorMessages) {
                 foreach ($errorMessages as $errorMessage) {
                     $this->flashMessenger()->addErrorMessage(
                         [
@@ -254,14 +251,14 @@ class TranslationController extends AbstractAdminController
                     ]
                 );
                 return $this->redirect()->toRoute('admin/translation/edit', ['id' => $newTranslation->getId()]);
-            } else {
-                $this->flashMessenger()->addErrorMessage(
-                    [
-                        'title'   => 'toaster.translation.create.title.error',
-                        'message' => 'toaster.translation.create.message.error',
-                    ]
-                );
             }
+
+            $this->flashMessenger()->addErrorMessage(
+                [
+                    'title'   => 'toaster.translation.create.title.error',
+                    'message' => 'toaster.translation.create.message.error',
+                ]
+            );
         }
 
         return [
@@ -311,18 +308,25 @@ class TranslationController extends AbstractAdminController
                         'message' => 'toaster.translation.edit.message.success',
                     ]
                 );
+
+                $queryString = "";
+                $queryParams = $this->params()->fromQuery();
+                if (count($queryParams) > 0) {
+                    $queryString = http_build_query($queryParams);
+                }
+
                 return $this->redirect()->toUrl(
-                    $this->url()->fromRoute('admin/translation/list').($_SERVER['QUERY_STRING'] ?
-                        '?'.$_SERVER['QUERY_STRING'] : '')
-                );
-            } else {
-                $this->flashMessenger()->addErrorMessage(
-                    [
-                        'title'   => 'toaster.translation.edit.title.error',
-                        'message' => 'toaster.translation.edit.message.error',
-                    ]
+                    $this->url()
+                        ->fromRoute('admin/translation/list') . $queryString
                 );
             }
+
+            $this->flashMessenger()->addErrorMessage(
+                [
+                    'title'   => 'toaster.translation.edit.title.error',
+                    'message' => 'toaster.translation.edit.message.error',
+                ]
+            );
         }
 
         // get related translations (same key and text domain but different locale)
