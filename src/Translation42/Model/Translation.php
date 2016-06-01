@@ -1,12 +1,4 @@
 <?php
-/**
- * translation42 (www.raum42.at)
- *
- * @link      http://www.raum42.at
- * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
- *
- */
-
 namespace Translation42\Model;
 
 use Core42\Model\AbstractModel;
@@ -14,16 +6,16 @@ use Core42\Model\AbstractModel;
 /**
  * @method Translation setId() setId(int $id)
  * @method int getId() getId()
- * @method Translation setMessage() setMessage(string $message)
- * @method int getMessage() getMessage()
  * @method Translation setTextDomain() setTextDomain(string $textDomain)
- * @method int getTextDomain() getTextDomain()
+ * @method string getTextDomain() getTextDomain()
  * @method Translation setLocale() setLocale(string $locale)
- * @method int getLocale() getLocale()
+ * @method string getLocale() getLocale()
+ * @method Translation setMessage() setMessage(string $message)
+ * @method string getMessage() getMessage()
  * @method Translation setTranslation() setTranslation(string $translation)
- * @method int getTranslation() getTranslation()
+ * @method string getTranslation() getTranslation()
  * @method Translation setStatus() setStatus(string $status)
- * @method int getStatus() getStatus()
+ * @method string getStatus() getStatus()
  * @method Translation setUpdated() setUpdated(\DateTime $updated)
  * @method \DateTime getUpdated() getUpdated()
  * @method Translation setCreated() setCreated(\DateTime $created)
@@ -37,7 +29,7 @@ class Translation extends AbstractModel
     /**
      * @var array
      */
-    protected $properties = [
+    public $properties = [
         'id',
         'textDomain',
         'locale',
@@ -45,6 +37,6 @@ class Translation extends AbstractModel
         'translation',
         'status',
         'updated',
-        'created'
+        'created',
     ];
 }

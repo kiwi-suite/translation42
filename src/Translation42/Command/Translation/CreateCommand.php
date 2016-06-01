@@ -124,10 +124,10 @@ class CreateCommand extends AbstractCommand
 
         if ($this->status === null) {
             $this->status = Translation::STATUS_MANUAL;
-        } else {
-            if (!in_array($this->status, [Translation::STATUS_MANUAL, Translation::STATUS_AUTO])) {
-                $this->addError("status", "invalid status '{$this->status}'");
-            }
+        }
+
+        if (!in_array($this->status, [Translation::STATUS_MANUAL, Translation::STATUS_AUTO])) {
+            $this->addError("status", "invalid status '{$this->status}'");
         }
     }
 
