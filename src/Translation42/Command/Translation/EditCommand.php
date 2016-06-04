@@ -10,6 +10,7 @@
 namespace Translation42\Command\Translation;
 
 use Core42\Command\AbstractCommand;
+use Core42\Db\Transaction\TransactionManager;
 use Translation42\Model\Translation;
 
 class EditCommand extends AbstractCommand
@@ -130,25 +131,31 @@ class EditCommand extends AbstractCommand
      */
     protected function execute()
     {
-        $dateTime = new \DateTime();
+        try {
+            $this->getServiceManager()->get(TransactionManager::class)->transaction(function(){
+                $dateTime = new \DateTime();
 
-        $this->translationModel
-            ->setTranslation($this->translation)
-            ->setStatus(Translation::STATUS_MANUAL)
-            ->setUpdated($dateTime);
+                $this->translationModel
+                    ->setTranslation($this->translation)
+                    ->setStatus(Translation::STATUS_MANUAL)
+                    ->setUpdated($dateTime);
 
-        $this->getServiceManager()->get('TableGateway')->get('Translation42\Translation')->update(
-            $this->translationModel
-        );
+                $this->getServiceManager()->get('TableGateway')->get('Translation42\Translation')->update(
+                    $this->translationModel
+                );
 
-        $cacheId = 'Zend_I18n_Translator_Messages_';
-        $cacheId .= md5($this->translationModel->getTextDomain().$this->translationModel->getLocale());
+                $cacheId = 'Zend_I18n_Translator_Messages_';
+                $cacheId .= md5($this->translationModel->getTextDomain().$this->translationModel->getLocale());
 
-        $translator = $this->getServiceManager()->get('MvcTranslator');
-        if (($cache = $translator->getCache()) !== null) {
-            $cache->removeItem($cacheId);
+                $translator = $this->getServiceManager()->get('MvcTranslator');
+                if (($cache = $translator->getCache()) !== null) {
+                    $cache->removeItem($cacheId);
+                }
+            });
+        } catch (\Exception $e) {
+            $this->addError("system", $e->getMessage());
         }
-
+        
         return $this->translationModel;
     }
 }
