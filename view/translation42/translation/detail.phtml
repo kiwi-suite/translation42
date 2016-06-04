@@ -75,15 +75,14 @@
                                 <div class="col-sm-offset-1 col-md-10">
                                     <submit submit-text="<?= $this->translate('button.save', 'admin') ?>"></submit>
 
-                                    <?php if ($this->params()->fromRoute('isEditMode') == true && $this->permission('admin42')->isGranted('route/admin/translation/delete')): ?>
-                                        <button
-                                            type="button"
-                                            class="btn btn-danger dynamic-form-submit"
-                                            data-action="<?= $this->url('admin/translation/delete') ?>"
-                                            data-form-id="<?= $this->params()->fromRoute('id') ?>">
-                                            <span class="fa fa-trash-o"></span>
-                                            <?= $this->translate('button.delete', 'admin') ?>
-                                        </button>
+                                    <?php if($this->params()->fromRoute('isEditMode') == true && $this->permission('admin42')->isGranted('route/admin/translation/delete')): ?>
+                                        <delete
+                                            url="<?= $this->url('admin/translation/delete') ?>"
+                                            title="<?= $this->translate("translation.modal.delete.title", "admin") ?>"
+                                            content="<?= $this->translate("translation.modal.delete.content", "admin") ?>"
+                                            request-id="<?= $this->params()->fromRoute("id") ?>"
+                                        >
+                                        </delete>
                                     <?php endif; ?>
                                 </div>
                             </div>
