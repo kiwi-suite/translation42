@@ -178,6 +178,14 @@ class CreateCommand extends AbstractCommand
                         continue;
                     }
 
+                    if ($this->getTableGateway(TranslationTableGateway::class)->select([
+                            'textDomain' => $this->textDomain,
+                            'message' => $this->message,
+                            'locale' => $locale,
+                        ])->count() > 0) {
+                        continue;
+                    }
+
                     $translationModel = new Translation();
                     $translationModel->setTextDomain($this->textDomain)
                         ->setLocale($locale)
