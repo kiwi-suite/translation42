@@ -11,7 +11,9 @@ namespace Translation42\Controller;
 
 use Admin42\Mvc\Controller\AbstractAdminController;
 use Core42\I18n\Localization\Localization;
+use Core42\View\Model\JsonModel;
 use Translation42\Command\Translation\CreateCommand;
+use Translation42\Command\Translation\DeleteCommand;
 use Translation42\Command\Translation\EditCommand;
 use Translation42\Command\Translation\ExportCommand;
 use Translation42\Form\Translation\CreateForm;
@@ -309,16 +311,7 @@ class TranslationController extends AbstractAdminController
                     ]
                 );
 
-                $queryString = "";
-                $queryParams = $this->params()->fromQuery();
-                if (count($queryParams) > 0) {
-                    $queryString = http_build_query($queryParams);
-                }
-
-                return $this->redirect()->toUrl(
-                    $this->url()
-                        ->fromRoute('admin/translation/list') . $queryString
-                );
+                return $this->redirect()->toRoute('admin/translation/list');
             }
 
             $this->flashMessenger()->addErrorMessage(
@@ -355,5 +348,36 @@ class TranslationController extends AbstractAdminController
      */
     public function deleteAction()
     {
+        if ($this->getRequest()->isDelete()) {
+            $deleteCmd = $this->getCommand(DeleteCommand::class);
+
+            $deleteParams = array();
+            parse_str($this->getRequest()->getContent(), $deleteParams);
+
+            $deleteCmd->setTranslationId((int) $deleteParams['id'])
+                ->run();
+
+            return new JsonModel(array(
+                'success' => true,
+            ));
+        } elseif ($this->getRequest()->isPost()) {
+            $deleteCmd = $this->getCommand(DeleteCommand::class);
+
+            $deleteCmd->setTranslationId((int) $this->params()->fromPost('id'))
+                ->run();
+
+            $this->flashMessenger()->addSuccessMessage([
+                'title' => 'toaster.translation.delete.title.success',
+                'message' => 'toaster.translation.delete.message.success',
+            ]);
+
+            return new JsonModel([
+                'redirect' => $this->url()->fromRoute('admin/translation/list')
+            ]);
+        }
+
+        return new JsonModel([
+            'redirect' => $this->url()->fromRoute('admin/translation/list')
+        ]);
     }
 }
