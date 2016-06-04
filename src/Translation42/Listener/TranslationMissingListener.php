@@ -9,6 +9,7 @@
 
 namespace Translation42\Listener;
 
+use Core42\I18n\Localization\Localization;
 use Exception;
 use Translation42\Command\Translation\CreateCommand;
 use Translation42\Model\Translation;
@@ -26,6 +27,7 @@ class TranslationMissingListener
 
         /** @var ServiceLocator $serviceLocator */
         $serviceLocator = $event->getTarget()->getPluginManager()->getServiceLocator();
+
 
         $config = $serviceLocator->get('Config');
 
@@ -46,16 +48,14 @@ class TranslationMissingListener
         if ($isRemoteTextDomain) {
             try {
                 /** @var CreateCommand $cmd */
-                $cmd = $serviceLocator->get('Command')->get('Translation42\Translation\Create');
+                $cmd = $serviceLocator->get('Command')->get(CreateCommand::class);
                 $cmd->setTextDomain($eventParams['text_domain']);
                 $cmd->setLocale($eventParams['locale']);
                 $cmd->setMessage($eventParams['message']);
                 $cmd->setStatus(Translation::STATUS_AUTO);
                 $cmd->run();
             } catch (Exception $e) {
-                // ok
-                // translation with same message, local and textDomain was already inserted but
-                // translation is still empty
+
             }
         }
     }
