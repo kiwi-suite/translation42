@@ -10,7 +10,10 @@
 namespace Translation42\Command\Translation;
 
 use Core42\Command\AbstractCommand;
+use Core42\Db\Transaction\TransactionManager;
+use Core42\I18n\Localization\Localization;
 use Translation42\Model\Translation;
+use Translation42\TableGateway\TranslationTableGateway;
 
 class CreateCommand extends AbstractCommand
 {
@@ -41,42 +44,57 @@ class CreateCommand extends AbstractCommand
 
     /**
      * @param string $textDomain
+     * @return $this
      */
     public function setTextDomain($textDomain)
     {
         $this->textDomain = $textDomain;
+
+        return $this;
     }
 
     /**
      * @param string $locale
+     * @return $this
      */
     public function setLocale($locale)
     {
         $this->locale = $locale;
+
+        return $this;
     }
 
     /**
      * @param string $message
+     * @return $this
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
+        return $this;
     }
 
     /**
      * @param string $translation
+     * @return $this
      */
     public function setTranslation($translation)
     {
         $this->translation = $translation;
+
+        return $this;
     }
 
     /**
      * @param string $status
+     * @return $this
      */
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
     }
 
     /**
@@ -136,22 +154,49 @@ class CreateCommand extends AbstractCommand
      */
     protected function execute()
     {
-        $datetime = new \DateTime();
         $translation = new Translation();
-        $translation->setTextDomain($this->textDomain)
-            ->setLocale($this->locale)
-            ->setMessage($this->message)
-            ->setTranslation($this->translation)
-            ->setStatus($this->status)
-            ->setCreated($datetime)
-            ->setUpdated($datetime);
 
-        $this->getTableGateway('Translation42\Translation')->insert($translation);
+        try {
+            $this->getServiceManager()->get(TransactionManager::class)->transaction(function() use (&$translation){
+                $datetime = new \DateTime();
 
-        $cacheId = 'Zend_I18n_Translator_Messages_'.md5($this->textDomain.$this->locale);
-        $translator = $this->getServiceManager()->get('MvcTranslator');
-        if (($cache = $translator->getCache()) !== null) {
-            $cache->removeItem($cacheId);
+                $translation->setTextDomain($this->textDomain)
+                    ->setLocale($this->locale)
+                    ->setMessage($this->message)
+                    ->setTranslation($this->translation)
+                    ->setStatus($this->status)
+                    ->setCreated($datetime)
+                    ->setUpdated($datetime);
+
+                $this->getTableGateway(TranslationTableGateway::class)->insert($translation);
+
+                /** @var Localization $localization */
+                $localization = $this->getServiceManager()->get(Localization::class);
+
+                foreach ($localization->getAvailableLocales() as $locale) {
+                    if ($locale == $this->locale) {
+                        continue;
+                    }
+
+                    $translationModel = new Translation();
+                    $translationModel->setTextDomain($this->textDomain)
+                        ->setLocale($locale)
+                        ->setMessage($this->message)
+                        ->setTranslation(null)
+                        ->setStatus($this->status)
+                        ->setCreated($datetime)
+                        ->setUpdated($datetime);
+                    $this->getTableGateway(TranslationTableGateway::class)->insert($translationModel);
+                }
+
+                $cacheId = 'Zend_I18n_Translator_Messages_'.md5($this->textDomain.$this->locale);
+                $translator = $this->getServiceManager()->get('MvcTranslator');
+                if (($cache = $translator->getCache()) !== null) {
+                    $cache->removeItem($cacheId);
+                }
+            });
+        } catch (\Exception $e) {
+            $this->addError("system", $e->getMessage());
         }
 
         return $translation;
