@@ -23,7 +23,7 @@ class DatabaseTranslationLoaderFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         /** @var TranslationTableGateway $tableGateway */
-        $tableGateway = $serviceLocator->getServiceLocator()->get('TableGateway')->get('Translation42\Translation');
+        $tableGateway = $serviceLocator->getServiceLocator()->get('TableGateway')->get(TranslationTableGateway::class);
         return new DatabaseTranslationLoader($tableGateway);
     }
 }

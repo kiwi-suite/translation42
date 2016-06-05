@@ -11,6 +11,7 @@ namespace Translation42\Selector\SmartTable;
 
 use Admin42\Selector\SmartTable\AbstractSmartTableSelector;
 use Core42\Db\ResultSet\ResultSet;
+use Translation42\TableGateway\TranslationTableGateway;
 use Zend\Db\Sql\Select;
 
 class TranslationSelector extends AbstractSmartTableSelector
@@ -20,7 +21,7 @@ class TranslationSelector extends AbstractSmartTableSelector
      */
     protected function getSelect()
     {
-        $gateway = $this->getTableGateway('Translation42\Translation');
+        $gateway = $this->getTableGateway(TranslationTableGateway::class);
 
         $select = $gateway->getSql()->select();
 
@@ -43,9 +44,9 @@ class TranslationSelector extends AbstractSmartTableSelector
     protected function getDatabaseTypeMap()
     {
         return [
-            'id'      => 'Mysql/Integer',
-            'updated' => 'Mysql/Datetime',
-            'created' => 'Mysql/Datetime',
+            'id'      => 'Integer',
+            'updated' => 'Datetime',
+            'created' => 'Datetime',
         ];
     }
 

@@ -19,6 +19,7 @@ use Translation42\Command\Translation\ExportCommand;
 use Translation42\Form\Translation\CreateForm;
 use Translation42\Form\Translation\EditForm;
 use Translation42\Model\Translation;
+use Translation42\Selector\SmartTable\TranslationSelector;
 use Translation42\TableGateway\TranslationTableGateway;
 use Zend\Db\Sql\Where;
 use Zend\Http\Headers;
@@ -32,10 +33,10 @@ class TranslationController extends AbstractAdminController
     public function dashboardAction()
     {
         /** @var TranslationTableGateway $tableGateway */
-        $tableGateway = $this->getTableGateway('Translation42\Translation');
+        $tableGateway = $this->getTableGateway(TranslationTableGateway::class);
 
         /** @var Localization $localization */
-        $localization = $this->getServiceLocator()->get('Localization');
+        $localization = $this->getServiceLocator()->get(Localization::class);
         $locales = $localization->getAvailableLocales();
 
         // show all textDomains and their stats
@@ -145,11 +146,11 @@ class TranslationController extends AbstractAdminController
     public function indexAction()
     {
         if ($this->getRequest()->isXmlHttpRequest()) {
-            return $this->getSelector('Translation42\SmartTable\Translation')->getResult();
+            return $this->getSelector(TranslationSelector::class)->getResult();
         }
 
         /** @var Localization $localization */
-        $localization = $this->getServiceLocator()->get('Localization');
+        $localization = $this->getServiceLocator()->get(Localization::class);
         $locales = $localization->getAvailableLocalesDisplay();
 
         // show all textDomains and their stats
@@ -170,7 +171,7 @@ class TranslationController extends AbstractAdminController
         // TODO: allow different export types (dropdown in gui for: json, phparray)
 
         /** @var ExportCommand $cmd */
-        $cmd = $this->getCommand('Translation42\Translation\Export');
+        $cmd = $this->getCommand(ExportCommand::class);
         $cmd->setFormat('json');
         $cmd->setTextDomain($this->params()->fromRoute('text-domain'));
         $cmd->run();
@@ -227,7 +228,7 @@ class TranslationController extends AbstractAdminController
     public function createAction()
     {
         /** @var CreateForm $form */
-        $form = $this->getForm('Translation42\Translation\Create');
+        $form = $this->getForm(CreateForm::class);
 
         $prg = $this->prg();
         if ($prg instanceof Response) {
@@ -236,7 +237,7 @@ class TranslationController extends AbstractAdminController
 
         if ($prg !== false) {
             /** @var CreateCommand $cmd */
-            $cmd = $this->getCommand('Translation42\Translation\Create');
+            $cmd = $this->getCommand(CreateCommand::class);
 
             $formCommand = $this->getFormCommand();
             $newTranslation = $formCommand->setForm($form)
@@ -279,7 +280,7 @@ class TranslationController extends AbstractAdminController
             return $prg;
         }
 
-        $translation = $this->getTableGateway('Translation42\Translation')->selectByPrimary(
+        $translation = $this->getTableGateway(TranslationTableGateway::class)->selectByPrimary(
             (int)$this->params()->fromRoute('id')
         );
 
@@ -288,12 +289,12 @@ class TranslationController extends AbstractAdminController
         }
 
         /** @var EditForm $form */
-        $form = $this->getForm('Translation42\Translation\Edit');
+        $form = $this->getForm(EditForm::class);
         $form->setData($translation->toArray());
 
         if ($prg !== false) {
             /** @var EditCommand $cmd */
-            $cmd = $this->getCommand('Translation42\Translation\Edit');
+            $cmd = $this->getCommand(EditCommand::class);
             $cmd->setTranslationId((int)$this->params()->fromRoute('id'));
 
             $formCommand = $this->getFormCommand();

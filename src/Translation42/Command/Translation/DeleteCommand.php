@@ -55,7 +55,7 @@ class DeleteCommand extends AbstractCommand
     {
         if (!empty($this->translationId)) {
             $this->translation =
-                $this->getTableGateway('Translation42\Translation')->selectByPrimary((int)$this->translationId);
+                $this->getTableGateway(TranslationTableGateway::class)->selectByPrimary((int)$this->translationId);
         }
 
         if (!($this->translation instanceof Translation)) {
@@ -69,13 +69,15 @@ class DeleteCommand extends AbstractCommand
     protected function execute()
     {
         try {
-            $this->getServiceManager()->get(TransactionManager::class)->transaction(function(){
+            $this->getServiceManager()->get(TransactionManager::class)->transaction(function () {
                 $this->getTableGateway(TranslationTableGateway::class)->delete([
                     'textDomain' => $this->translation->getTextDomain(),
                     'message' => $this->translation->getMessage(),
                 ]);
-                $cacheId =
-                    'Zend_I18n_Translator_Messages_'.md5($this->translation->getTextDomain().$this->translation->getLocale());
+                
+                $cacheId = 'Zend_I18n_Translator_Messages_'
+                    . md5($this->translation->getTextDomain() . $this->translation->getLocale());
+
                 $translator = $this->getServiceManager()->get('MvcTranslator');
                 if (($cache = $translator->getCache()) !== null) {
                     $cache->removeItem($cacheId);

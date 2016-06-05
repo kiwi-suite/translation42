@@ -40,7 +40,7 @@ class CreateForm extends Form
         $message->setLabel('label.message');
         $this->add($message);
 
-        $translation = new TextArea('translation');
+        $translation = new Textarea('translation');
         $translation->setLabel('label.translation');
         $this->add($translation);
     }

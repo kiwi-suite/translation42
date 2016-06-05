@@ -38,7 +38,7 @@ abstract class AbstractCommand extends \Core42\Command\AbstractCommand
     protected function getMessages($textDomain)
     {
         /** @var TranslationTableGateway $translationTableGateway */
-        $translationTableGateway = $this->getTableGateway('Translation42\Translation');
+        $translationTableGateway = $this->getTableGateway(TranslationTableGateway::class);
         $messagesResult = $translationTableGateway->select(['textDomain' => $textDomain]);
 
         $messages = [];

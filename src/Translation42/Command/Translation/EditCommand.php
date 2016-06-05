@@ -12,6 +12,7 @@ namespace Translation42\Command\Translation;
 use Core42\Command\AbstractCommand;
 use Core42\Db\Transaction\TransactionManager;
 use Translation42\Model\Translation;
+use Translation42\TableGateway\TranslationTableGateway;
 
 class EditCommand extends AbstractCommand
 {
@@ -116,7 +117,7 @@ class EditCommand extends AbstractCommand
     {
         if (!empty($this->translationId)) {
             $this->translationModel =
-                $this->getTableGateway('Translation42\Translation')->selectByPrimary((int)$this->translationId);
+                $this->getTableGateway(TranslationTableGateway::class)->selectByPrimary((int)$this->translationId);
         }
 
         if (!($this->translationModel instanceof Translation)) {
@@ -132,7 +133,7 @@ class EditCommand extends AbstractCommand
     protected function execute()
     {
         try {
-            $this->getServiceManager()->get(TransactionManager::class)->transaction(function(){
+            $this->getServiceManager()->get(TransactionManager::class)->transaction(function () {
                 $dateTime = new \DateTime();
 
                 $this->translationModel
@@ -140,7 +141,7 @@ class EditCommand extends AbstractCommand
                     ->setStatus(Translation::STATUS_MANUAL)
                     ->setUpdated($dateTime);
 
-                $this->getServiceManager()->get('TableGateway')->get('Translation42\Translation')->update(
+                $this->getServiceManager()->get('TableGateway')->get(TranslationTableGateway::class)->update(
                     $this->translationModel
                 );
 
@@ -155,7 +156,7 @@ class EditCommand extends AbstractCommand
         } catch (\Exception $e) {
             $this->addError("system", $e->getMessage());
         }
-        
+
         return $this->translationModel;
     }
 }

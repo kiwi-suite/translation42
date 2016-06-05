@@ -9,6 +9,7 @@
 
 namespace Translation42\FormElements\Service;
 
+use Core42\I18n\Localization\Localization;
 use Zend\Form\Element\Select;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -23,7 +24,7 @@ class LocaleFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $localization = $serviceLocator->getServiceLocator()->get('Localization');
+        $localization = $serviceLocator->getServiceLocator()->get(Localization::class);
 
         $locales = $localization->getAvailableLocalesDisplay();
 

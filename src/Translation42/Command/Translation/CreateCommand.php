@@ -157,7 +157,7 @@ class CreateCommand extends AbstractCommand
         $translation = new Translation();
 
         try {
-            $this->getServiceManager()->get(TransactionManager::class)->transaction(function() use (&$translation){
+            $this->getServiceManager()->get(TransactionManager::class)->transaction(function () use (&$translation) {
                 $datetime = new \DateTime();
 
                 $translation->setTextDomain($this->textDomain)

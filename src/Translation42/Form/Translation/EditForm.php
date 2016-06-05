@@ -22,7 +22,7 @@ class EditForm extends Form
     {
         $this->add(new Csrf('csrf'));
 
-        $translation = new TextArea("translation");
+        $translation = new Textarea("translation");
         $translation->setLabel("label.translation");
         $this->add($translation);
     }
