@@ -10,7 +10,6 @@
 namespace Translation42\Command\Translation;
 
 use Core42\Command\AbstractCommand;
-use Core42\Db\Transaction\TransactionManager;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
 
@@ -68,23 +67,17 @@ class DeleteCommand extends AbstractCommand
      */
     protected function execute()
     {
-        try {
-            $this->getServiceManager()->get(TransactionManager::class)->transaction(function () {
-                $this->getTableGateway(TranslationTableGateway::class)->delete([
-                    'textDomain' => $this->translation->getTextDomain(),
-                    'message' => $this->translation->getMessage(),
-                ]);
-                
-                $cacheId = 'Zend_I18n_Translator_Messages_'
-                    . md5($this->translation->getTextDomain() . $this->translation->getLocale());
+        $this->getTableGateway(TranslationTableGateway::class)->delete([
+            'textDomain' => $this->translation->getTextDomain(),
+            'message' => $this->translation->getMessage(),
+        ]);
 
-                $translator = $this->getServiceManager()->get('MvcTranslator');
-                if (($cache = $translator->getCache()) !== null) {
-                    $cache->removeItem($cacheId);
-                }
-            });
-        } catch (\Exception $e) {
-            $this->addError("system", $e->getMessage());
+        $cacheId = 'Zend_I18n_Translator_Messages_'
+            . md5($this->translation->getTextDomain() . $this->translation->getLocale());
+
+        $translator = $this->getServiceManager()->get('MvcTranslator');
+        if (($cache = $translator->getCache()) !== null) {
+            $cache->removeItem($cacheId);
         }
     }
 }

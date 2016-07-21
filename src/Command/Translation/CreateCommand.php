@@ -10,7 +10,6 @@
 namespace Translation42\Command\Translation;
 
 use Core42\Command\AbstractCommand;
-use Core42\Db\Transaction\TransactionManager;
 use Core42\I18n\Localization\Localization;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
@@ -156,55 +155,49 @@ class CreateCommand extends AbstractCommand
     {
         $translation = new Translation();
 
-        try {
-            $this->getServiceManager()->get(TransactionManager::class)->transaction(function () use (&$translation) {
-                $datetime = new \DateTime();
+        $datetime = new \DateTime();
 
-                $translation->setTextDomain($this->textDomain)
-                    ->setLocale($this->locale)
-                    ->setMessage($this->message)
-                    ->setTranslation($this->translation)
-                    ->setStatus($this->status)
-                    ->setCreated($datetime)
-                    ->setUpdated($datetime);
+        $translation->setTextDomain($this->textDomain)
+            ->setLocale($this->locale)
+            ->setMessage($this->message)
+            ->setTranslation($this->translation)
+            ->setStatus($this->status)
+            ->setCreated($datetime)
+            ->setUpdated($datetime);
 
-                $this->getTableGateway(TranslationTableGateway::class)->insert($translation);
+        $this->getTableGateway(TranslationTableGateway::class)->insert($translation);
 
-                /** @var Localization $localization */
-                $localization = $this->getServiceManager()->get(Localization::class);
+        /** @var Localization $localization */
+        $localization = $this->getServiceManager()->get(Localization::class);
 
-                foreach ($localization->getAvailableLocales() as $locale) {
-                    if ($locale == $this->locale) {
-                        continue;
-                    }
+        foreach ($localization->getAvailableLocales() as $locale) {
+            if ($locale == $this->locale) {
+                continue;
+            }
 
-                    if ($this->getTableGateway(TranslationTableGateway::class)->select([
-                            'textDomain' => $this->textDomain,
-                            'message' => $this->message,
-                            'locale' => $locale,
-                        ])->count() > 0) {
-                        continue;
-                    }
+            if ($this->getTableGateway(TranslationTableGateway::class)->select([
+                    'textDomain' => $this->textDomain,
+                    'message' => $this->message,
+                    'locale' => $locale,
+                ])->count() > 0) {
+                continue;
+            }
 
-                    $translationModel = new Translation();
-                    $translationModel->setTextDomain($this->textDomain)
-                        ->setLocale($locale)
-                        ->setMessage($this->message)
-                        ->setTranslation(null)
-                        ->setStatus($this->status)
-                        ->setCreated($datetime)
-                        ->setUpdated($datetime);
-                    $this->getTableGateway(TranslationTableGateway::class)->insert($translationModel);
-                }
+            $translationModel = new Translation();
+            $translationModel->setTextDomain($this->textDomain)
+                ->setLocale($locale)
+                ->setMessage($this->message)
+                ->setTranslation(null)
+                ->setStatus($this->status)
+                ->setCreated($datetime)
+                ->setUpdated($datetime);
+            $this->getTableGateway(TranslationTableGateway::class)->insert($translationModel);
+        }
 
-                $cacheId = 'Zend_I18n_Translator_Messages_'.md5($this->textDomain.$this->locale);
-                $translator = $this->getServiceManager()->get('MvcTranslator');
-                if (($cache = $translator->getCache()) !== null) {
-                    $cache->removeItem($cacheId);
-                }
-            });
-        } catch (\Exception $e) {
-            $this->addError("system", $e->getMessage());
+        $cacheId = 'Zend_I18n_Translator_Messages_'.md5($this->textDomain.$this->locale);
+        $translator = $this->getServiceManager()->get('MvcTranslator');
+        if (($cache = $translator->getCache()) !== null) {
+            $cache->removeItem($cacheId);
         }
 
         return $translation;

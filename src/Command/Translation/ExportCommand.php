@@ -42,6 +42,11 @@ class ExportCommand extends AbstractCommand
     private $textDomain;
 
     /**
+     * @var bool
+     */
+    protected $transaction = false;
+
+    /**
      * @param string $format
      * @return $this
      */

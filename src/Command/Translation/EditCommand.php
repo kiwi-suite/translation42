@@ -132,29 +132,23 @@ class EditCommand extends AbstractCommand
      */
     protected function execute()
     {
-        try {
-            $this->getServiceManager()->get(TransactionManager::class)->transaction(function () {
-                $dateTime = new \DateTime();
+        $dateTime = new \DateTime();
 
-                $this->translationModel
-                    ->setTranslation($this->translation)
-                    ->setStatus(Translation::STATUS_MANUAL)
-                    ->setUpdated($dateTime);
+        $this->translationModel
+            ->setTranslation($this->translation)
+            ->setStatus(Translation::STATUS_MANUAL)
+            ->setUpdated($dateTime);
 
-                $this->getServiceManager()->get('TableGateway')->get(TranslationTableGateway::class)->update(
-                    $this->translationModel
-                );
+        $this->getServiceManager()->get('TableGateway')->get(TranslationTableGateway::class)->update(
+            $this->translationModel
+        );
 
-                $cacheId = 'Zend_I18n_Translator_Messages_';
-                $cacheId .= md5($this->translationModel->getTextDomain().$this->translationModel->getLocale());
+        $cacheId = 'Zend_I18n_Translator_Messages_';
+        $cacheId .= md5($this->translationModel->getTextDomain().$this->translationModel->getLocale());
 
-                $translator = $this->getServiceManager()->get('MvcTranslator');
-                if (($cache = $translator->getCache()) !== null) {
-                    $cache->removeItem($cacheId);
-                }
-            });
-        } catch (\Exception $e) {
-            $this->addError("system", $e->getMessage());
+        $translator = $this->getServiceManager()->get('MvcTranslator');
+        if (($cache = $translator->getCache()) !== null) {
+            $cache->removeItem($cacheId);
         }
 
         return $this->translationModel;
