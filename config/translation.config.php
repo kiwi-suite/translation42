@@ -1,6 +1,11 @@
 <?php
 namespace Translation42;
 
+use Translation42\FormElements\Service\LocaleFactory;
+use Translation42\FormElements\Service\TextDomainFactory;
+use Translation42\I18n\Translator\Service\DatabaseTranslationLoaderFactory;
+use Translation42\Listener\TranslationMissingListener;
+
 return [
     'translator'          => [
         'translation_file_patterns'    => [
@@ -28,7 +33,7 @@ return [
         ],
         'event_manager_enabled'        => true,
         'missing_translations_handler' => [
-            'service' => 'Translation42/TranslationMissingListener',
+            'service' => TranslationMissingListener::class,
             'action'  => 'autoGenerateMissingTranslation',
         ],
 
@@ -43,13 +48,13 @@ return [
     ],
     'translation_manager' => [
         'factories' => [
-            'database' => 'Translation42\I18n\Translator\Service\DatabaseTranslationLoaderFactory',
+            'database' => DatabaseTranslationLoaderFactory::class,
         ]
     ],
     'form_elements'       => [
         'factories' => [
-            'locale'      => 'Translation42\FormElements\Service\LocaleFactory',
-            'text_domain' => 'Translation42\FormElements\Service\TextDomainFactory',
+            'locale'      => LocaleFactory::class,
+            'text_domain' => TextDomainFactory::class,
         ],
     ],
 ];

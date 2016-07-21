@@ -1,6 +1,9 @@
 <?php
 namespace Translation42;
 
+use Translation42\Listener\TranslationMissingListener;
+use Zend\ServiceManager\Factory\InvokableFactory;
+
 return [
     'view_manager'    => [
         'template_path_stack' => [
@@ -9,8 +12,8 @@ return [
     ],
 
     'service_manager' => [
-        'invokables' => [
-            'Translation42/TranslationMissingListener' => 'Translation42\Listener\TranslationMissingListener',
+        'factories' => [
+            TranslationMissingListener::class => InvokableFactory::class
         ],
     ],
 

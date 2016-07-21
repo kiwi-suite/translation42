@@ -1,13 +1,17 @@
 <?php
 namespace Translation42;
 
+use Core42\Mvc\Router\Http\AngularSegment;
+use Zend\Router\Http\Literal;
+use Zend\Router\Http\Segment;
+
 return [
     'router' => [
         'routes' => [
             'admin' => [
                 'child_routes' => [
                     'translation' => [
-                        'type'          => 'Zend\Mvc\Router\Http\Literal',
+                        'type'          => Literal::class,
                         'options'       => [
                             'route'    => 'translation/',
                             'defaults' => [
@@ -18,7 +22,7 @@ return [
                         'may_terminate' => true,
                         'child_routes'  => [
                             'list'   => [
-                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                'type'    => Segment::class,
                                 'options' => [
                                     'route'    => 'list/',
                                     'defaults' => [
@@ -27,7 +31,7 @@ return [
                                 ],
                             ],
                             'export'   => [
-                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                'type'    => Segment::class,
                                 'options' => [
                                     'route'    => 'export/:text-domain',
                                     'defaults' => [
@@ -36,7 +40,7 @@ return [
                                 ],
                             ],
                             'edit'   => [
-                                'type'    => 'Core42\Mvc\Router\Http\AngularSegment',
+                                'type'    => AngularSegment::class,
                                 'options' => [
                                     'route'    => 'edit/:id/',
                                     'defaults' => [
@@ -46,7 +50,7 @@ return [
                                 ],
                             ],
                             'add'    => [
-                                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                                'type'    => Literal::class,
                                 'options' => [
                                     'route'    => 'add/',
                                     'defaults' => [
@@ -56,7 +60,7 @@ return [
                                 ],
                             ],
                             'delete' => [
-                                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                                'type'    => Literal::class,
                                 'options' => [
                                     'route'    => 'delete/',
                                     'defaults' => [

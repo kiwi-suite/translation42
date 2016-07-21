@@ -1,11 +1,11 @@
 {
     "name": "fruit42/translation42",
     "require": {
-        "php": ">=5.5"
+        "php": "^5.5 || ^7.0"
     },
     "autoload": {
-        "psr-0": {
-            "Translation42": "src/"
+        "psr-4": {
+            "Translation42\\": "src/"
         }
     }
 }
