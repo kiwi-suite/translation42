@@ -9,12 +9,16 @@
 
 namespace Translation42;
 
+use Admin42\ModuleManager\Feature\AdminAwareModuleInterface;
+use Translation42\FormElements\Service\LocaleFactory;
+use Translation42\FormElements\Service\TextDomainFactory;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 
 class Module implements
     ConfigProviderInterface,
-    DependencyIndicatorInterface
+    DependencyIndicatorInterface,
+    AdminAwareModuleInterface
 {
     /**
      * @return array
@@ -40,6 +44,43 @@ class Module implements
         return [
             'Core42',
             'Admin42'
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdminStylesheets()
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdminJavascript()
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdminViewHelpers()
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getAdminFormElements()
+    {
+        return [
+            'factories' => [
+                'locale'      => LocaleFactory::class,
+                'text_domain' => TextDomainFactory::class,
+            ],
         ];
     }
 }

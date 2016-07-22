@@ -51,10 +51,4 @@ return [
             'database' => DatabaseTranslationLoaderFactory::class,
         ]
     ],
-    'form_elements'       => [
-        'factories' => [
-            'locale'      => LocaleFactory::class,
-            'text_domain' => TextDomainFactory::class,
-        ],
-    ],
 ];
