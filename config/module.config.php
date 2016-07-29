@@ -1,8 +1,8 @@
 <?php
 namespace Translation42;
 
+use Translation42\Listener\Service\TranslationMissingListenerFactory;
 use Translation42\Listener\TranslationMissingListener;
-use Zend\ServiceManager\Factory\InvokableFactory;
 
 return [
     'view_manager'    => [
@@ -13,7 +13,7 @@ return [
 
     'service_manager' => [
         'factories' => [
-            TranslationMissingListener::class => InvokableFactory::class
+            TranslationMissingListener::class => TranslationMissingListenerFactory::class
         ],
     ],
 

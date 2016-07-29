@@ -31,11 +31,6 @@ class TranslationTableGateway extends AbstractTableGateway
     ];
 
     /**
-     * @var boolean
-     */
-    protected $useMetaDataFeature = false;
-
-    /**
      * @var string
      */
     protected $modelPrototype = 'Translation42\\Model\\Translation';
