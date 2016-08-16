@@ -321,7 +321,7 @@ class TranslationController extends AbstractAdminController
         $whereLocaleNotSame->notEqualTo('locale', $translation->getLocale());
         $whereTranslationNotNull = new Where();
         $whereTranslationNotNull->isNotNull('translation');
-        $relatedTranslations = $this->getTableGateway('Translation42\Translation')->select(
+        $relatedTranslations = $this->getTableGateway(TranslationTableGateway::class)->select(
             [
                 'message'    => $translation->getMessage(),
                 'textDomain' => $translation->getTextDomain(),

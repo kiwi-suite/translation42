@@ -113,13 +113,7 @@ class CreateCommand extends AbstractCommand
      */
     protected function preExecute()
     {
-        //TODO: check unique
         $existingTranslationModel = null;
-        //$existingTranslationModel = $this->getTableGateway('Translation42\Translation')->select(
-        //    [
-        //
-        //    ]
-        //);
 
         if (!empty($existingTranslationModel)) {
             $this->addError("translation", "translation with same key and locale already exists in this text domain");
