@@ -16,21 +16,7 @@ return [
                 'text_domain' => 'admin',
             ],
         ],
-        'remote_translation'           => [
-            /**
-             * add database remote translation text domains as follows:
-             */
-            //[
-            //    'type'         => 'database',
-            //    'text_domain'  => 'frontend',
-            //    'display_name' => 'Frontend',
-            //],
-            //[
-            //    'type'         => 'database',
-            //    'text_domain'  => 'mobile',
-            //    'display_name' => 'Mobile',
-            //],
-        ],
+        'remote_translation'           => [],
         'event_manager_enabled'        => true,
         'missing_translations_handler' => [
             'service' => TranslationMissingListener::class,
@@ -46,7 +32,7 @@ return [
             ],
         ],
     ],
-    'translation_manager' => [
+    'translator_plugins' => [
         'factories' => [
             'database' => DatabaseTranslationLoaderFactory::class,
         ]

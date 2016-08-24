@@ -13,6 +13,7 @@ use Core42\Command\AbstractCommand;
 use Core42\Db\Transaction\TransactionManager;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
+use Zend\I18n\Translator\TranslatorInterface;
 
 class EditCommand extends AbstractCommand
 {
@@ -146,7 +147,7 @@ class EditCommand extends AbstractCommand
         $cacheId = 'Zend_I18n_Translator_Messages_';
         $cacheId .= md5($this->translationModel->getTextDomain().$this->translationModel->getLocale());
 
-        $translator = $this->getServiceManager()->get('MvcTranslator');
+        $translator = $this->getServiceManager()->get(TranslatorInterface::class);
         if (($cache = $translator->getCache()) !== null) {
             $cache->removeItem($cacheId);
         }
