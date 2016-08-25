@@ -22,15 +22,6 @@ return [
             'service' => TranslationMissingListener::class,
             'action'  => 'autoGenerateMissingTranslation',
         ],
-
-        'cache' => [
-            'adapter' => [
-                'name' => 'memory',
-            ],
-            'plugins' => [
-                'Serializer'
-            ],
-        ],
     ],
     'translator_plugins' => [
         'factories' => [

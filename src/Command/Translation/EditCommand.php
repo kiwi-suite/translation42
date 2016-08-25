@@ -144,14 +144,6 @@ class EditCommand extends AbstractCommand
             $this->translationModel
         );
 
-        $cacheId = 'Zend_I18n_Translator_Messages_';
-        $cacheId .= md5($this->translationModel->getTextDomain().$this->translationModel->getLocale());
-
-        $translator = $this->getServiceManager()->get(TranslatorInterface::class);
-        if (($cache = $translator->getCache()) !== null) {
-            $cache->removeItem($cacheId);
-        }
-
         return $this->translationModel;
     }
 }

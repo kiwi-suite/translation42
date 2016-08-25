@@ -72,13 +72,5 @@ class DeleteCommand extends AbstractCommand
             'textDomain' => $this->translation->getTextDomain(),
             'message' => $this->translation->getMessage(),
         ]);
-
-        $cacheId = 'Zend_I18n_Translator_Messages_'
-            . md5($this->translation->getTextDomain() . $this->translation->getLocale());
-
-        $translator = $this->getServiceManager()->get(TranslatorInterface::class);
-        if (($cache = $translator->getCache()) !== null) {
-            $cache->removeItem($cacheId);
-        }
     }
 }
