@@ -41,7 +41,11 @@ class DatabaseTranslationLoader implements RemoteLoaderInterface
         $messages = [];
         /** @var Translation $translation */
         foreach ($resultSet as $translation) {
-            $messages[$translation->getMessage()] = $translation->getTranslation();
+            $message = $translation->getTranslation();
+            if (empty($message)) {
+                $message = $translation->getMessage();
+            }
+            $messages[$translation->getMessage()] = $message;
         }
         $domain = new TextDomain($messages);
         return $domain;
