@@ -1,19 +1,20 @@
 <?php
-/**
- * translation42 (www.raum42.at)
+
+/*
+ * translation42
  *
- * @link      http://www.raum42.at
- * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
- *
+ * @package translation42
+ * @link https://github.com/raum42/translation42
+ * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @license MIT License
+ * @author raum42 <kiwi@raum42.at>
  */
 
 namespace Translation42\Command\Translation;
 
 use Core42\Command\AbstractCommand;
-use Core42\Db\Transaction\TransactionManager;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
-use Zend\I18n\Translator\TranslatorInterface;
 
 class EditCommand extends AbstractCommand
 {
@@ -118,11 +119,11 @@ class EditCommand extends AbstractCommand
     {
         if (!empty($this->translationId)) {
             $this->translationModel =
-                $this->getTableGateway(TranslationTableGateway::class)->selectByPrimary((int)$this->translationId);
+                $this->getTableGateway(TranslationTableGateway::class)->selectByPrimary((int) $this->translationId);
         }
 
         if (!($this->translationModel instanceof Translation)) {
-            $this->addError("translation", "invalid translation");
+            $this->addError('translation', 'invalid translation');
         }
 
         $this->translation = (empty($this->translation)) ? null : $this->translation;

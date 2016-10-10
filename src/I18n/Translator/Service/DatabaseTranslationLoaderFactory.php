@@ -1,10 +1,13 @@
 <?php
-/**
- * translation42 (www.raum42.at)
+
+/*
+ * translation42
  *
- * @link      http://www.raum42.at
- * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
- *
+ * @package translation42
+ * @link https://github.com/raum42/translation42
+ * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @license MIT License
+ * @author raum42 <kiwi@raum42.at>
  */
 
 namespace Translation42\I18n\Translator\Service;
@@ -34,7 +37,7 @@ class DatabaseTranslationLoaderFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         return new DatabaseTranslationLoader(
-            $container->get("TableGateway")->get(TranslationTableGateway::class)
+            $container->get('TableGateway')->get(TranslationTableGateway::class)
         );
     }
 }

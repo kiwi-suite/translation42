@@ -1,4 +1,15 @@
 <?php
+
+/*
+ * translation42
+ *
+ * @package translation42
+ * @link https://github.com/raum42/translation42
+ * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @license MIT License
+ * @author raum42 <kiwi@raum42.at>
+ */
+
 namespace Translation42\Listener\Service;
 
 use Interop\Container\ContainerInterface;
@@ -11,7 +22,6 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 class TranslationMissingListenerFactory implements FactoryInterface
 {
-
     /**
      * Create an object
      *
@@ -26,11 +36,11 @@ class TranslationMissingListenerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $container->get("config")['translator'];
+        $config = $container->get('config')['translator'];
         $config = (!empty($config['remote_translation'])) ? $config['remote_translation'] : [];
 
         return new TranslationMissingListener(
-            $container->get("Command")->get(CreateCommand::class),
+            $container->get('Command')->get(CreateCommand::class),
             $config
         );
     }

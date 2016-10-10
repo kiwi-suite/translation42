@@ -1,11 +1,21 @@
 <?php
+
+/*
+ * translation42
+ *
+ * @package translation42
+ * @link https://github.com/raum42/translation42
+ * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @license MIT License
+ * @author raum42 <kiwi@raum42.at>
+ */
+
 namespace Translation42\TableGateway;
 
 use Core42\Db\TableGateway\AbstractTableGateway;
 
 class TranslationTableGateway extends AbstractTableGateway
 {
-
     /**
      * @var string
      */

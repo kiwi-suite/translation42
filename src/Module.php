@@ -1,10 +1,13 @@
 <?php
-/**
- * translation42 (www.raum42.at)
+
+/*
+ * translation42
  *
- * @link      http://www.raum42.at
- * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
- *
+ * @package translation42
+ * @link https://github.com/raum42/translation42
+ * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @license MIT License
+ * @author raum42 <kiwi@raum42.at>
  */
 
 namespace Translation42;
@@ -12,8 +15,6 @@ namespace Translation42;
 use Admin42\ModuleManager\Feature\AdminAwareModuleInterface;
 use Admin42\ModuleManager\GetAdminConfigTrait;
 use Core42\ModuleManager\GetConfigTrait;
-use Translation42\FormElements\Service\LocaleFactory;
-use Translation42\FormElements\Service\TextDomainFactory;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 
@@ -34,7 +35,7 @@ class Module implements
     {
         return [
             'Core42',
-            'Admin42'
+            'Admin42',
         ];
     }
 }

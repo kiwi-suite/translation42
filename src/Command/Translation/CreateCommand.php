@@ -1,10 +1,13 @@
 <?php
-/**
- * translation42 (www.raum42.at)
+
+/*
+ * translation42
  *
- * @link      http://www.raum42.at
- * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
- *
+ * @package translation42
+ * @link https://github.com/raum42/translation42
+ * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @license MIT License
+ * @author raum42 <kiwi@raum42.at>
  */
 
 namespace Translation42\Command\Translation;
@@ -13,7 +16,6 @@ use Core42\Command\AbstractCommand;
 use Core42\I18n\Localization\Localization;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
-use Zend\I18n\Translator\TranslatorInterface;
 
 class CreateCommand extends AbstractCommand
 {
@@ -117,19 +119,19 @@ class CreateCommand extends AbstractCommand
         $existingTranslationModel = null;
 
         if (!empty($existingTranslationModel)) {
-            $this->addError("translation", "translation with same key and locale already exists in this text domain");
+            $this->addError('translation', 'translation with same key and locale already exists in this text domain');
         }
 
         if (empty($this->textDomain)) {
-            $this->addError("textDomain", "textDomain can't be empty");
+            $this->addError('textDomain', "textDomain can't be empty");
         }
 
         if (empty($this->locale)) {
-            $this->addError("locale", "locale can't be empty");
+            $this->addError('locale', "locale can't be empty");
         }
 
         if (empty($this->message)) {
-            $this->addError("message", "message can't be empty");
+            $this->addError('message', "message can't be empty");
         }
 
         $this->translation = (empty($this->translation)) ? null : $this->translation;
@@ -139,7 +141,7 @@ class CreateCommand extends AbstractCommand
         }
 
         if (!in_array($this->status, [Translation::STATUS_MANUAL, Translation::STATUS_AUTO])) {
-            $this->addError("status", "invalid status '{$this->status}'");
+            $this->addError('status', "invalid status '{$this->status}'");
         }
     }
 
