@@ -1,10 +1,13 @@
 <?php
-/**
- * translation42 (www.raum42.at)
+
+/*
+ * translation42
  *
- * @link      http://www.raum42.at
- * @copyright Copyright (c) 2010-2015 raum42 OG (http://www.raum42.at)
- *
+ * @package translation42
+ * @link https://github.com/raum42/translation42
+ * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @license MIT License
+ * @author raum42 <kiwi@raum42.at>
  */
 
 namespace Translation42\Form\Translation;
@@ -19,16 +22,16 @@ class EditForm extends Form
     public function init()
     {
         $this->add([
-            'name' => "csrf",
-            "type" => "csrf",
+            'name' => 'csrf',
+            'type' => 'csrf',
         ]);
 
         $this->add([
             'name' => 'translation',
             'type' => 'textarea',
             'options' => [
-                'label' => 'label.translation'
-            ]
+                'label' => 'label.translation',
+            ],
         ]);
     }
 }

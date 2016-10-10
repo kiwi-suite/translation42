@@ -1,4 +1,15 @@
 <?php
+
+/*
+ * translation42
+ *
+ * @package translation42
+ * @link https://github.com/raum42/translation42
+ * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @license MIT License
+ * @author raum42 <kiwi@raum42.at>
+ */
+
 namespace Translation42\Model;
 
 use Core42\Model\AbstractModel;
@@ -23,8 +34,8 @@ use Core42\Model\AbstractModel;
  */
 class Translation extends AbstractModel
 {
-    const STATUS_AUTO = "auto";
-    const STATUS_MANUAL = "manual";
+    const STATUS_AUTO = 'auto';
+    const STATUS_MANUAL = 'manual';
 
     /**
      * @var array
