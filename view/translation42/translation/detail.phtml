@@ -1,10 +1,4 @@
-<div class="wrapper-md bg-white b-b box-shadow">
-    <h1 class="m-n font-thin h3">
-        <span class="fa fa-globe"></span>
-        <?= $this->translate('title.message', 'admin') ?>
-    </h1>
-</div>
-
+<?= $this->pageHeader($this->translate('title.message', 'admin'), 'fa fa-globe') ?>
 <div class="wrapper-md">
     <div class="row">
         <div class="<?php if ($this->translation): ?>col-lg-12<?php else: ?>col-lg-6<?php endif ?>">

@@ -1,12 +1,7 @@
 <?php
 $forceStTableReload = (strlen($this->params()->fromQuery('locale'))) || (strlen($this->params()->fromQuery('status'))) || strlen($this->params()->fromQuery('text-domain'));
 ?>
-<div class="wrapper-md bg-white b-b box-shadow">
-    <h1 class="m-n font-thin h3">
-        <span class="fa fa-globe"></span>
-        <?= $this->translate('title.translation.index', 'admin') ?>
-    </h1>
-</div>
+<?= $this->pageHeader($this->translate('title.translation.index', 'admin'), 'fa fa-globe') ?>
 <div class="wrapper-md">
     <div class="panel panel-default">
         <div class="table-responsive" ng-controller="DataGridController"

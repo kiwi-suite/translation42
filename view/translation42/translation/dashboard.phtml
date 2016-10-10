@@ -1,9 +1,4 @@
-<div class="wrapper-md bg-white b-b box-shadow">
-    <h1 class="m-n font-thin h3">
-        <span class="fa fa-globe"></span>
-        <?= $this->translate('title.translation.dashboard', 'admin') ?>
-    </h1>
-</div>
+<?= $this->pageHeader($this->translate('title.translation.dashboard', 'admin'), 'fa fa-globe') ?>
 <div class="wrapper-md">
     <div class="row">
         <?php foreach ($this->textDomains as $textDomain): ?>
