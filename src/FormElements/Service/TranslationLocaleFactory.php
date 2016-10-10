@@ -9,15 +9,15 @@
 
 namespace Translation42\FormElements\Service;
 
+use Admin42\FormElements\Select;
 use Core42\I18n\Localization\Localization;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\Form\Element\Select;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
-class LocaleFactory implements FactoryInterface
+class TranslationLocaleFactory implements FactoryInterface
 {
     /**
      * Create an object
@@ -37,7 +37,7 @@ class LocaleFactory implements FactoryInterface
 
         $locales = $localization->getAvailableLocalesDisplay();
 
-        $element = new Select();
+        $element = $container->get('FormElementManager')->get(Select::class);
         $element->setValueOptions($locales);
 
         return $element;

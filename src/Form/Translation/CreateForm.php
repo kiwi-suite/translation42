@@ -9,11 +9,7 @@
 
 namespace Translation42\Form\Translation;
 
-use Zend\Form\Element\Csrf;
-use Zend\Form\Element\Select;
-use Zend\Form\Element\Text;
-use Zend\Form\Element\Textarea;
-use Zend\Form\Form;
+use Admin42\FormElements\Form;
 
 class CreateForm extends Form
 {
@@ -22,26 +18,42 @@ class CreateForm extends Form
      */
     public function init()
     {
-        $this->add(new Csrf('csrf'));
+        $this->add([
+            'name' => "csrf",
+            "type" => "csrf",
+        ]);
 
-        /** @var Select $textDomain */
-        $textDomain = $this->getFormFactory()->getFormElementManager()->get('text_domain');
-        $textDomain->setName('textDomain');
-        $textDomain->setLabel('label.textDomain');
-        $this->add($textDomain);
+        $this->add([
+            'name' => 'textDomain',
+            'type' => 'textDomain',
+            'options' => [
+                'label' => 'label.textDomain',
+            ]
+        ]);
 
-        /** @var Select $locale */
-        $locale = $this->getFormFactory()->getFormElementManager()->get('locale');
-        $locale->setName('locale');
-        $locale->setLabel('label.locale');
-        $this->add($locale);
+        $this->add([
+            'name' => 'locale',
+            'type' => 'translationLocale',
+            'options' => [
+                'label' => 'label.locale',
+            ]
+        ]);
 
-        $message = new Text('message');
-        $message->setLabel('label.message');
-        $this->add($message);
+        $this->add([
+            'name' => 'message',
+            'type' => 'text',
+            'options' => [
+                'label' => 'label.message',
+            ]
+        ]);
 
-        $translation = new Textarea('translation');
-        $translation->setLabel('label.translation');
-        $this->add($translation);
+
+        $this->add([
+            'name' => 'translation',
+            'type' => 'textarea',
+            'options' => [
+                'label' => 'label.translation'
+            ]
+        ]);
     }
 }

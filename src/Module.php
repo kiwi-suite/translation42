@@ -10,6 +10,8 @@
 namespace Translation42;
 
 use Admin42\ModuleManager\Feature\AdminAwareModuleInterface;
+use Admin42\ModuleManager\GetAdminConfigTrait;
+use Core42\ModuleManager\GetConfigTrait;
 use Translation42\FormElements\Service\LocaleFactory;
 use Translation42\FormElements\Service\TextDomainFactory;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
@@ -20,19 +22,8 @@ class Module implements
     DependencyIndicatorInterface,
     AdminAwareModuleInterface
 {
-    /**
-     * @return array
-     */
-    public function getConfig()
-    {
-        return array_merge(
-            include __DIR__.'/../config/cli.config.php',
-            include __DIR__.'/../config/module.config.php',
-            include __DIR__.'/../config/navigation.config.php',
-            include __DIR__.'/../config/routing.config.php',
-            include __DIR__.'/../config/translation.config.php'
-        );
-    }
+    use GetConfigTrait;
+    use GetAdminConfigTrait;
 
     /**
      * Expected to return an array of modules on which the current one depends on
@@ -44,43 +35,6 @@ class Module implements
         return [
             'Core42',
             'Admin42'
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function getAdminStylesheets()
-    {
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function getAdminJavascript()
-    {
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function getAdminViewHelpers()
-    {
-        return [];
-    }
-
-    /**
-     * @return array
-     */
-    public function getAdminFormElements()
-    {
-        return [
-            'factories' => [
-                'locale'      => LocaleFactory::class,
-                'text_domain' => TextDomainFactory::class,
-            ],
         ];
     }
 }

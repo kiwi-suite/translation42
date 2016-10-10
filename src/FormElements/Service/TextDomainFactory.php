@@ -9,9 +9,9 @@
 
 namespace Translation42\FormElements\Service;
 
+use Admin42\FormElements\Select;
 use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
-use Zend\Form\Element\Select;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
@@ -43,7 +43,7 @@ class TextDomainFactory implements FactoryInterface
             }
         }
 
-        $element = new Select();
+        $element = $container->get('FormElementManager')->get(Select::class);
         $element->setValueOptions($textDomains);
 
         return $element;

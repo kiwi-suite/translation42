@@ -9,9 +9,7 @@
 
 namespace Translation42\Form\Translation;
 
-use Zend\Form\Element\Csrf;
-use Zend\Form\Element\Textarea;
-use Zend\Form\Form;
+use Admin42\FormElements\Form;
 
 class EditForm extends Form
 {
@@ -20,10 +18,17 @@ class EditForm extends Form
      */
     public function init()
     {
-        $this->add(new Csrf('csrf'));
+        $this->add([
+            'name' => "csrf",
+            "type" => "csrf",
+        ]);
 
-        $translation = new Textarea("translation");
-        $translation->setLabel("label.translation");
-        $this->add($translation);
+        $this->add([
+            'name' => 'translation',
+            'type' => 'textarea',
+            'options' => [
+                'label' => 'label.translation'
+            ]
+        ]);
     }
 }

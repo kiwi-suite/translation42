@@ -44,9 +44,9 @@ class TranslationSelector extends AbstractSmartTableSelector
     protected function getDatabaseTypeMap()
     {
         return [
-            'id'      => 'Integer',
-            'updated' => 'DateTime',
-            'created' => 'DateTime',
+            'id'      => 'integer',
+            'updated' => 'dateTime',
+            'created' => 'dateTime',
         ];
     }
 

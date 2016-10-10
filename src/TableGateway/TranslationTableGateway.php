@@ -20,14 +20,14 @@ class TranslationTableGateway extends AbstractTableGateway
      * @var array
      */
     protected $databaseTypeMap = [
-        'id' => 'Integer',
-        'textDomain' => 'String',
-        'locale' => 'String',
-        'message' => 'String',
-        'translation' => 'String',
-        'status' => 'String',
-        'updated' => 'DateTime',
-        'created' => 'DateTime',
+        'id' => 'integer',
+        'textDomain' => 'string',
+        'locale' => 'string',
+        'message' => 'string',
+        'translation' => 'string',
+        'status' => 'string',
+        'updated' => 'dateTime',
+        'created' => 'dateTime',
     ];
 
     /**
