@@ -14,6 +14,7 @@ namespace Translation42;
 
 use Admin42\ModuleManager\Feature\AdminAwareModuleInterface;
 use Admin42\ModuleManager\GetAdminConfigTrait;
+use Core42\ModuleManager\Feature\CliConfigProviderInterface;
 use Core42\ModuleManager\GetConfigTrait;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
@@ -21,6 +22,7 @@ use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 class Module implements
     ConfigProviderInterface,
     DependencyIndicatorInterface,
+    CliConfigProviderInterface,
     AdminAwareModuleInterface
 {
     use GetConfigTrait;
@@ -37,5 +39,13 @@ class Module implements
             'Core42',
             'Admin42',
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCliConfig()
+    {
+        return include_once __DIR__ . '/../config/cli/cli.config.php';
     }
 }

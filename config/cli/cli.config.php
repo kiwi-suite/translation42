@@ -6,6 +6,7 @@ use Translation42\Command\Translation\ExportCommand;
 return [
     'cli' => [
         'translation-export' => [
+            'group'                => '*',
             'route'                => 'translation-export --textdomain= --format= ',
             'command-name'         => ExportCommand::class,
             'description'          => 'Export translation messages by text-domain to different formats. Additionally by locale (optional). Output will be printed to CLI (use output redirect to file)',
