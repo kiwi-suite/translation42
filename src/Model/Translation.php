@@ -13,6 +13,7 @@
 namespace Translation42\Model;
 
 use Core42\Model\AbstractModel;
+use Core42\Stdlib\DateTime;
 
 /**
  * @method Translation setId() setId(int $id)
@@ -27,10 +28,10 @@ use Core42\Model\AbstractModel;
  * @method string getTranslation() getTranslation()
  * @method Translation setStatus() setStatus(string $status)
  * @method string getStatus() getStatus()
- * @method Translation setUpdated() setUpdated(\DateTime $updated)
- * @method \DateTime getUpdated() getUpdated()
- * @method Translation setCreated() setCreated(\DateTime $created)
- * @method \DateTime getCreated() getCreated()
+ * @method Translation setUpdated() setUpdated(DateTime $updated)
+ * @method DateTime getUpdated() getUpdated()
+ * @method Translation setCreated() setCreated(DateTime $created)
+ * @method DateTime getCreated() getCreated()
  */
 class Translation extends AbstractModel
 {

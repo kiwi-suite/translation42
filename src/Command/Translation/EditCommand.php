@@ -13,6 +13,7 @@
 namespace Translation42\Command\Translation;
 
 use Core42\Command\AbstractCommand;
+use Core42\Stdlib\DateTime;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
 
@@ -134,7 +135,7 @@ class EditCommand extends AbstractCommand
      */
     protected function execute()
     {
-        $dateTime = new \DateTime();
+        $dateTime = new DateTime();
 
         $this->translationModel
             ->setTranslation($this->translation)

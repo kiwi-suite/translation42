@@ -14,6 +14,7 @@ namespace Translation42\Command\Translation;
 
 use Core42\Command\AbstractCommand;
 use Core42\I18n\Localization\Localization;
+use Core42\Stdlib\DateTime;
 use Translation42\Model\Translation;
 use Translation42\TableGateway\TranslationTableGateway;
 
@@ -152,7 +153,7 @@ class CreateCommand extends AbstractCommand
     {
         $translation = new Translation();
 
-        $datetime = new \DateTime();
+        $datetime = new DateTime();
 
         $translation->setTextDomain($this->textDomain)
             ->setLocale($this->locale)
