@@ -69,7 +69,7 @@
                                 <div class="col-sm-offset-1 col-md-10">
                                     <submit submit-text="<?= $this->translate('button.save', 'admin') ?>"></submit>
 
-                                    <?php if($this->params()->fromRoute('isEditMode') == true && $this->permission('admin42')->isGranted('route/admin/translation/delete')): ?>
+                                    <?php if($this->params()->fromRoute('isEditMode') == true && $this->permission('admin42')->authorized('route/admin/translation/delete')): ?>
                                         <delete
                                             url="<?= $this->url('admin/translation/delete') ?>"
                                             title="<?= $this->translate("translation.modal.delete.title", "admin") ?>"

@@ -10,14 +10,14 @@
                         </span>
 
                         <div class="panel-title pull-right text-muted">
-                            <?php if($this->permission('admin42')->isGranted('route/admin/translation/list')): ?>
+                            <?php if($this->permission('admin42')->authorized('route/admin/translation/list')): ?>
                             <a href="<?= $this->url(
                                 'admin/translation/list'
                             ) ?>?text-domain=<?= $textDomain['text_domain'] ?>">
                                 <?= $textDomain['num_total'] ?> Messages
                             </a>
                             <?php endif; ?>
-                            <?php if($this->permission('admin42')->isGranted('route/admin/translation/export')): ?>
+                            <?php if($this->permission('admin42')->authorized('route/admin/translation/export')): ?>
                             <a class="btn btn-default btn-xs" href="<?= $this->url(
                                 'admin/translation/export',
                                 ['text-domain' => $textDomain['text_domain']]
@@ -75,7 +75,7 @@
                         </div>
                         <div class="list-group">
                             <?php foreach ($textDomain['regions'] as $region): ?>
-                            <?php if($this->permission('admin42')->isGranted('route/admin/translation/list')): ?>
+                            <?php if($this->permission('admin42')->authorized('route/admin/translation/list')): ?>
                                 <a href="<?= $this->url(
                                     'admin/translation/list'
                                 ) ?>?text-domain=<?= $textDomain['text_domain'] ?>&amp;locale=<?= $region['locale'] ?>"
