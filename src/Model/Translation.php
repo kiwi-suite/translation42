@@ -41,7 +41,7 @@ class Translation extends AbstractModel
     /**
      * @var array
      */
-    public $properties = [
+    protected $properties = [
         'id',
         'textDomain',
         'locale',
