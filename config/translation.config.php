@@ -1,6 +1,11 @@
 <?php
 namespace Translation42;
 
+use Translation42\FormElements\Service\LocaleFactory;
+use Translation42\FormElements\Service\TextDomainFactory;
+use Translation42\I18n\Translator\Service\DatabaseTranslationLoaderFactory;
+use Translation42\Listener\TranslationMissingListener;
+
 return [
     'translator'          => [
         'translation_file_patterns'    => [
@@ -11,45 +16,16 @@ return [
                 'text_domain' => 'admin',
             ],
         ],
-        'remote_translation'           => [
-            /**
-             * add database remote translation text domains as follows:
-             */
-            //[
-            //    'type'         => 'database',
-            //    'text_domain'  => 'frontend',
-            //    'display_name' => 'Frontend',
-            //],
-            //[
-            //    'type'         => 'database',
-            //    'text_domain'  => 'mobile',
-            //    'display_name' => 'Mobile',
-            //],
-        ],
+        'remote_translation'           => [],
         'event_manager_enabled'        => true,
         'missing_translations_handler' => [
-            'service' => 'Translation42/TranslationMissingListener',
+            'service' => TranslationMissingListener::class,
             'action'  => 'autoGenerateMissingTranslation',
         ],
-
-        'cache' => [
-            'adapter' => [
-                'name' => 'memory',
-            ],
-            'plugins' => [
-                'Serializer'
-            ],
-        ],
     ],
-    'translation_manager' => [
+    'translator_plugins' => [
         'factories' => [
-            'database' => 'Translation42\I18n\Translator\Service\DatabaseTranslationLoaderFactory',
+            'database' => DatabaseTranslationLoaderFactory::class,
         ]
-    ],
-    'form_elements'       => [
-        'factories' => [
-            'locale'      => 'Translation42\FormElements\Service\LocaleFactory',
-            'text_domain' => 'Translation42\FormElements\Service\TextDomainFactory',
-        ],
     ],
 ];

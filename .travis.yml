@@ -1,0 +1,11 @@
+language: php
+sudo: false
+php:
+- '5.6'
+- '7.0'
+before_script:
+- composer install --prefer-dist --no-interaction
+notifications:
+  slack:
+    rooms:
+      secure: w01OLXYl6lr3jysnsF0TGMOgkNf1YDV1IsgOsbSwLvGe2mfyzb+6EJyhJCmWq9N1mA8+ldvdmfr6Hih+aQcWEpNY3WDwQKlaU73loTHI7iD66xkOzZDXOP/ZIk5166sVzOIBwAZKR3CH5cdyAWWkytf3Od5KkSMVpx0SirMKxDsQDraPbEOTmUZj1uZVcpofebFksMTscVJtWJEBc9XrMnZfhIem1gBFmU72WHWOrURx+DGKr0+umsWdnWdjUKtHc6OvOUuyLPx4ZeKkXQHzQvG09MRTz/eMbuc6PX736/L4YHG9e0lDmp83OcUu3e4XQfmcA35g8p4bb6MyMdpTcbBC7LlBs1HmGseQR5dpl2OPyHlP9SpdDTZK7tVUxbu17ORxucywut+0TChDjTwxH3bI45fK+rtfI5dFFmDWSMK9UNPWsSzPlwjR1y2U220ISECZZLByR+rNbpQzvaGelfHgbOpPWIiOy7ZFwRVEL/zZ/oTLT/QCmdGX/AjNPhcXnP6yPtM7KsPRQZI/TP6SuKSoNtSmDnekgt8eNs1wNfFoc2BHvP5tWMvH2I3yQyl4771/X4dq4JCW0E424bMayqjMzZFrLOj/C3D0iq6P93MT4e8GUs6nn+hg2eOdiruOUzYe7uQaKHoFZ2odJTKMviPog0Kf1p3UIeJbDJknRCE=

@@ -1,16 +1,13 @@
 <?php
 namespace Translation42;
 
-return [
-    'view_manager'    => [
-        'template_path_stack' => [
-            __NAMESPACE__ => __DIR__ . '/../view',
-        ],
-    ],
+use Translation42\Listener\Service\TranslationMissingListenerFactory;
+use Translation42\Listener\TranslationMissingListener;
 
+return [
     'service_manager' => [
-        'invokables' => [
-            'Translation42/TranslationMissingListener' => 'Translation42\Listener\TranslationMissingListener',
+        'factories' => [
+            TranslationMissingListener::class => TranslationMissingListenerFactory::class
         ],
     ],
 
