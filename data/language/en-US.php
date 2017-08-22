@@ -14,7 +14,6 @@ return [
     'label.message'    => 'Message',
     'label.status'     => 'Status',
 
-    'button.calendar-ical'      => 'Download iCal',
     'button.message-key-add'    => 'Add Message Translation',
     'button.text-domain-export' => 'Export Messages',
 

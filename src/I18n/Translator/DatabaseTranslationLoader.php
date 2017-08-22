@@ -4,10 +4,10 @@
  * translation42
  *
  * @package translation42
- * @link https://github.com/raum42/translation42
- * @copyright Copyright (c) 2010 - 2016 raum42 (https://www.raum42.at)
+ * @link https://github.com/kiwi-suite/translation42
+ * @copyright Copyright (c) 2010 - 2017 kiwi suite (https://www.kiwi-suite.com)
  * @license MIT License
- * @author raum42 <kiwi@raum42.at>
+ * @author kiwi suite <dev@kiwi-suite.com>
  */
 
 namespace Translation42\I18n\Translator;
