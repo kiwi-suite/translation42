@@ -154,23 +154,12 @@ class CreateCommand extends AbstractCommand
         $translation = new Translation();
 
         $datetime = new DateTime();
-
-        $translation->setTextDomain($this->textDomain)
-            ->setLocale($this->locale)
-            ->setMessage($this->message)
-            ->setTranslation($this->translation)
-            ->setStatus($this->status)
-            ->setCreated($datetime)
-            ->setUpdated($datetime);
-
-        $this->getTableGateway(TranslationTableGateway::class)->insert($translation);
-
-        /** @var Localization $localization */
         $localization = $this->getServiceManager()->get(Localization::class);
 
         foreach ($localization->getAvailableLocales() as $locale) {
-            if ($locale == $this->locale) {
-                continue;
+            $translated = null;
+	    if ($locale == $this->locale) {
+                $translated = $this->translation;
             }
 
             if ($this->getTableGateway(TranslationTableGateway::class)->select([
@@ -185,7 +174,7 @@ class CreateCommand extends AbstractCommand
             $translationModel->setTextDomain($this->textDomain)
                 ->setLocale($locale)
                 ->setMessage($this->message)
-                ->setTranslation(null)
+                ->setTranslation($translated)
                 ->setStatus($this->status)
                 ->setCreated($datetime)
                 ->setUpdated($datetime);
